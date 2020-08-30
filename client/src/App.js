@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  fetch('/').then(response => console.log(response.text));
   return (
     <div className="App">
       <header className="App-header">
