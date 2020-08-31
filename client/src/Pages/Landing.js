@@ -6,7 +6,7 @@ class Landing extends React.Component {
   render() {
     return (
       <div className="text-center">
-        <h1 class="title">Welcome to this Website</h1>
+        <h1 className="title">Welcome to this Website</h1>
         <p align="center">This website is dedicated to help people that are
         in need of a doctor's appointment</p>
         <Link to={ROUTES.INFO}>
