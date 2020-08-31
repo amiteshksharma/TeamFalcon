@@ -11,6 +11,7 @@ import Navigation from "./Pages/Navigation";
 import Personal_info from "./Pages/Personal_info";
 import Landing from "./Pages/Landing";
 import Symptoms from "./Pages/Symptoms";
+import SymptomList from "./Pages/SymptomList";
 import Breadcrumbs from "./Pages/Breadcrumbs";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route exact path={ROUTES.LANDING} component={Landing} />
           <Route exact path={ROUTES.INFO} component={Personal_info} />
           <Route exact path={ROUTES.SYMPTOMS} component={Symptoms} />
+          <Route exact path={ROUTES.SYMPTOM_LIST} component={SymptomList} />
         </Switch>
       </Router>
     </React.Fragment>

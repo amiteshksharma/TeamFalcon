@@ -2,6 +2,21 @@
     height: auto;
 }
 
-.symptoms-page h2 {
+.symptoms-page-h2 {
     margin-left: calc(2vw) !important;
+}
+
+.selected-section {
+    margin-top: calc(2vh);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.select-div {
+    width: 45%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
