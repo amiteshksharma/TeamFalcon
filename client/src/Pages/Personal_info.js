@@ -3,7 +3,7 @@ import { Container, Form, Col, Button } from "../../node_modules/react-bootstrap
 import {Link} from "react-router-dom";
 import { ROUTES } from "../routes";
 import "bootstrap/dist/css/bootstrap.css";
-import "../Style/personal_info.css";
+import "../css/personal_info.css";
 
 class Personal_info extends React.Component{
 
