@@ -1,3 +1,7 @@
 .symptoms-page {
     height: auto;
 }
+
+.symptoms-page h2 {
+    margin-left: calc(2vw) !important;
+}
