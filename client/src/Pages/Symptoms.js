@@ -1,6 +1,8 @@
 import React from 'react';
 import { Container, Row, Col, Button} from 'react-bootstrap';
 import '../css/Symptoms.css';
+import Breadcrumbs from './Breadcrumbs';
+
 
 class Symptoms extends React.Component {
   componentDidMount() {
