@@ -1,5 +1,6 @@
 .progress-bar-div {
-  margin-top: calc(10vh);
+  position: absolute;
+  bottom: calc(3vh);
   width: 100%;
   display: flex;
   align-content: center;
@@ -9,5 +10,13 @@
 }
 
 .progress-bar-div-center {
-  width: 50%;
+  width: 80%;
+}
+
+.progress {
+  background-color: #DCDCDC !important;
+}
+
+.progress-bar {
+  background-color: #789E9E !important;
 }

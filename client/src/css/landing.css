@@ -1,6 +1,29 @@
+.background-div {
+    height: calc(100vh);
+    background-image: url('aaron-lee-_qWnSEsA1Ls-unsplash.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 .title{
     text-align:center;
+    font-size: calc(2.5vw);
 }
 .text-center{
+    padding-top: calc(6vh);
     text-align: center;
+    color: white;
+}
+
+.text-center p {
+    font-size: calc(1.3vw);
+}
+
+.background-div .btn {
+    padding-left: calc(1.5vw) !important;
+    padding-right: calc(1.5vw) !important;
+    border-radius: calc(1vw) !important;
+    background-color: #FE817B;
+    border: none;
 }

@@ -11,6 +11,14 @@
     transform: scale(1.2);
 }
 
+.no-diagnosis {
+    overflow: hidden;
+    margin-left: calc(7vw);
+    margin-top: calc(10vh);
+    margin-bottom: calc(1vh);
+    height: calc(8vh);
+}
+
 .listgroup-div {
     width: calc(45vw);
 }

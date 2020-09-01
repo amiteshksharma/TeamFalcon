@@ -105,6 +105,8 @@ class SymptomList extends React.Component {
                             <Button 
                                 variant="primary"
                                 type="submit"
+                                style={{backgroundColor: '#FE817B', border: 'none', borderRadius: 'calc(1vw)', 
+                                paddingRight: 'calc(1.5vw)', paddingLeft: 'calc(1.5vw)'}}
                                 disabled={this.state.isDisabled}>Next: Get Diagnosis</Button>
                         </Link>
                         </Col>

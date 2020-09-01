@@ -13,8 +13,6 @@ class PreliminaryDiagnosis extends React.Component {
         const getBodyPartsID = localStorage.getItem('symptomIds');
         const getBodyParts = localStorage.getItem('symptom-body');
 
-        
-
         this.state = {
             MySymptoms: [],
             SymptomsList: getSymptoms !== null && getSymptoms !== undefined  && getSymptoms !== 'undefined' && getSymptoms !== 'null' ? JSON.parse(getSymptoms) : [],
@@ -31,12 +29,14 @@ class PreliminaryDiagnosis extends React.Component {
     removeName(list) {
         this.setState({SymptomsList: list}, () => {
             localStorage.setItem('symptom-types', JSON.stringify(this.state.SymptomsList));
+            window.location.reload();
         });
     }
 
     removeBody(list) {
         this.setState({BodyParts: list}, () => {
             localStorage.setItem('symptom-body', JSON.stringify(this.state.BodyParts));
+            window.location.reload();
         });
     }
 
@@ -69,8 +69,8 @@ class PreliminaryDiagnosis extends React.Component {
         })
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div>
                 <Container fluid>
                     <Row>
@@ -83,7 +83,7 @@ class PreliminaryDiagnosis extends React.Component {
                                         <div className="card-tabs-div">
                                             {this.state.BodyParts.map(body => {
                                                 return (
-                                                    <SelectedTab name={body} list={this.state.BodyParts} deletion={this.removeBody}/>    
+                                                    <SelectedTab name={body} list={this.state.BodyParts} deletion={this.removeBody} isDiagnosis={true} />    
                                                 )
                                             })}
                                             {this.state.SymptomsList.map(symptom => {
@@ -101,13 +101,14 @@ class PreliminaryDiagnosis extends React.Component {
                         <Col  md={{ span: 3, offset: 2 }}>
                             <div className="listgroup-div">
                                 <ListGroup variant="flush">
-                                    <ListGroup.Item variant="primary" style={{fontSize: 'calc(1.3vw)'}}>Possible Diagnosis</ListGroup.Item>
+                                    <ListGroup.Item style={{fontSize: 'calc(1.3vw)', backgroundColor: '#4D6466', color: 'white'}}>Possible Diagnosis</ListGroup.Item>
                                     <div className="listgroup-item-div">
                                         {this.state.Loading ? 
                                         <div className="listgroup-loading">
                                             <Spinner animation="border" variant="info" />
                                         </div> :
-                                        this.state.Diagnosis.map(diagnosis => {
+                                        (this.state.Diagnosis.length === 0 ? 
+                                        <h3 className="no-diagnosis">There appears to be no diagnosis right now...</h3> : this.state.Diagnosis.map(diagnosis => {
                                             return (
                                                 <div className="single-tile-div">
                                                     <ListGroup.Item>
@@ -115,7 +116,7 @@ class PreliminaryDiagnosis extends React.Component {
                                                     </ListGroup.Item>
                                                 </div>
                                             )
-                                        })}
+                                        }))}
                                     </div>
                                 </ListGroup>
                             </div>
@@ -129,6 +130,8 @@ class PreliminaryDiagnosis extends React.Component {
                             <Button 
                                 variant="primary"
                                 type="submit"
+                                style={{backgroundColor: '#FE817B', border: 'none', borderRadius: 'calc(1vw)', 
+                                paddingRight: 'calc(1.5vw)', paddingLeft: 'calc(1.5vw)'}}
                                 >Next: Find nearest clinic</Button>
                         </Link>
                         </Col>
