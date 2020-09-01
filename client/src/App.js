@@ -20,7 +20,6 @@ import Confirmation from './Pages/confirmation';
 function App() {
   return (
     //The router navigates to the different pages
-    <React.Fragment>
       <Router>
         <Navigation />
         <Breadcrumbs />
@@ -34,7 +33,6 @@ function App() {
           <Route exact path={ROUTES.CONFIRMATION} component={Confirmation} />
         </Switch>
       </Router>
-    </React.Fragment>
   );
 }
 
