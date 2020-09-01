@@ -4,7 +4,7 @@ export const ROUTES = {
     INFO: "/personal_info",
     SYMPTOMS: "/symptoms",
     SYMPTOM_LIST: "/symptomlist",
-    PreliminaryDiagnosis: "/preliminarydiagnosis",
+    PRELIMINARYDIAGNOSIS: "/preliminarydiagnosis",
     CLINICS: "/clinics_near_me",
     CONFIRMATION: "/confirmation_page",
   };

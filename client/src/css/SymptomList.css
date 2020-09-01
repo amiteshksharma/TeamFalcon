@@ -7,6 +7,10 @@
     align-items: center;
 }
 
+.spinner-div {
+    margin-left: calc(25vw);
+}
+
 .select-div-input {
     width: 50%;
 }

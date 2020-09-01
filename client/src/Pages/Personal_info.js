@@ -117,6 +117,7 @@ class Personal_info extends React.Component{
                       class="text-center" 
                       onClick={() => {
                         console.log("The button has been clicked");
+                        localStorage.setItem('age', this.state.date.substring(0, 3));
                       }}
                       variant="primary" 
                       type="submit">

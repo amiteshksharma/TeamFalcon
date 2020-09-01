@@ -29,7 +29,7 @@ function App() {
           <Route exact path={ROUTES.INFO} component={Personal_info} />
           <Route exact path={ROUTES.SYMPTOMS} component={Symptoms} />
           <Route exact path={ROUTES.SYMPTOM_LIST} component={SymptomList} />
-          <Route exact path={ROUTES.PreliminaryDiagnosis} component={PreliminaryDiagnosis} />
+          <Route exact path={ROUTES.PRELIMINARYDIAGNOSIS} component={PreliminaryDiagnosis} />
           <Route exact path={ROUTES.CLINICS} component={Clinics} />
           <Route exact path={ROUTES.CONFIRMATION} component={Confirmation} />
         </Switch>

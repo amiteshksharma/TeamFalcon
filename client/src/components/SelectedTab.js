@@ -7,10 +7,16 @@ export default function SelectedTab(props) {
     const list = props.list;
 
     const handleClick = () => {
-        const index = list.findIndex(value => value === name);
-        console.log(index);
-        list.splice(index, 1);
-        props.deletion(list);
+        if(props.deletion) {
+            console.log('here')
+            const index = list.findIndex(value => value === name);
+            console.log(index);
+            list.splice(index, 1);
+            props.deletion(list);
+        } else {
+            const array = list.filter(element => element.label !== name);
+            props.deletionObj(array);
+        }
     }
 
     return (

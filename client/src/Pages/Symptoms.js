@@ -7,24 +7,18 @@ import Breadcrumbs from './Breadcrumbs';
 import { Link } from "react-router-dom";
 import { ROUTES } from "../routes";
 
-console.log(localStorage.getItem('symptom-body'))
-
 class Symptoms extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
       MarkedSymptoms: [],
-      NameSymptoms: localStorage.getItem('symptom-body') ? JSON.parse(localStorage.getItem('symptom-body')) : [],
-      isDisabled: true
+      NameSymptoms: localStorage.getItem('symptom-body') !== null && localStorage.getItem('symptom-body') !== undefined ? JSON.parse(localStorage.getItem('symptom-body')) : [],
+      isDisabled: localStorage.getItem('symptom-body') !== null && localStorage.getItem('symptom-body') !== undefined ? false : true,
     }
 
     this.updateMarkedSymptoms = this.updateMarkedSymptoms.bind(this);
     this.removeName = this.removeName.bind(this);
-  }
-
-  componentDidMount() {
-    console.log(this.state.NameSymptoms);
   }
 
   updateMarkedSymptoms(value, name) {

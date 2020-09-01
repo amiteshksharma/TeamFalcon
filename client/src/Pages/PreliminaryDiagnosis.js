@@ -1,38 +1,135 @@
 import React from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
-import { ListGroup, ListGroupItem, Card, CardBody, CardTitle, CardLink} from 'reactstrap';
+import { Container, Row, Col, ListGroup, Spinner, Card, Button } from 'react-bootstrap';
 import SelectedTab from '../components/SelectedTab';
-
-
+import { Link } from 'react-router-dom';
+import { ROUTES } from "../routes";
+import '../css/Diagnosis.css';
 
 class PreliminaryDiagnosis extends React.Component {
+    constructor(props) {
+        super(props);
+        const getSymptoms = localStorage.getItem('symptom-types');
+        const getBodyPartsID = localStorage.getItem('symptomIds');
+        const getBodyParts = localStorage.getItem('symptom-body');
+
+        this.state = {
+            MySymptoms: [],
+            SymptomsList: getSymptoms !== null && getSymptoms !== undefined  && getSymptoms !== 'undefined' ? JSON.parse(getSymptoms) : [],
+            BodyPartsId: getBodyPartsID !== null && getBodyPartsID !== undefined  && getBodyPartsID !== 'undefined' ? JSON.parse(getBodyPartsID) : [],
+            BodyParts: getBodyParts !== null && getBodyParts !== undefined  && getBodyParts !== 'undefined' ? JSON.parse(getBodyParts) : [],
+            Diagnosis: [],
+            Loading: true
+        }
+
+        this.removeName = this.removeName.bind(this);
+        this.removeBody = this.removeBody.bind(this);
+    }
+
+    removeName(list) {
+        this.setState({SymptomsList: list}, () => {
+            localStorage.setItem('symptom-types', JSON.stringify(this.state.SymptomsList));
+        });
+    }
+
+    removeBody(list) {
+        this.setState({BodyParts: list}, () => {
+            localStorage.setItem('symptom-body', JSON.stringify(this.state.BodyParts));
+        });
+    }
+
+    componentDidMount() {
+        let ids = []
+        this.state.SymptomsList.forEach(symptoms => {
+            ids.push(symptoms.value);
+        })
+
+        this.state.BodyPartsId.forEach(symptoms => {
+            ids.push(symptoms);
+        })
+
+        fetch('/diagnosis', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                Symptoms: ids,
+                Gender: 'male',
+                Age: 2000
+            })   
+        }).then(response => response.json())
+        .then(data => {
+            console.log(data);
+            this.setState({Diagnosis: data, Loading: false});
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+
     render(){
         return(
             <div>
-                <Container>
+                <Container fluid>
                     <Row>
-                        <Col>
+                        <Col md={{ span: 2, offset: 1 }}>
                             <div>
-                                <Card style={{width: '400px'}}>
-                                 <CardBody>
-                                <CardTitle style={{float: 'left'}}>My Symptoms</CardTitle>
-                                <CardLink href="#" style={{float: 'right'}}>Edit</CardLink>
-                                </CardBody>
+                                <Card style={{width: '25vw', marginTop: 'calc(4vh)'}}>
+                                    <Card.Body>
+                                    <Card.Title style={{float: 'left', width: '100%'}}>All Selected Symptoms</Card.Title>
+                                    <Card.Text style={{float: 'left'}}>
+                                        <div className="card-tabs-div">
+                                            {this.state.BodyParts.map(body => {
+                                                return (
+                                                    <SelectedTab name={body} list={this.state.BodyParts} deletion={this.removeBody}/>    
+                                                )
+                                            })}
+                                            {this.state.SymptomsList.map(symptom => {
+                                                console.log(symptom)
+                                                return (
+                                                    <SelectedTab name={symptom.label} list={this.state.SymptomsList} deletionObj={this.removeName}/>
+                                                )
+                                            })}
+                                        </div>
+                                    </Card.Text>
+                                    </Card.Body>
                                 </Card> 
                             </div>
                         </Col>
-                        <Col>
-                            <div>
-                                <ListGroup>
-                                    <ListGroupItem >Possible Diagnosis</ListGroupItem>
-                                    <ListGroupItem >XXXXXXX</ListGroupItem>
-                                    <ListGroupItem >XXXXXXXXX</ListGroupItem>
-                                    <ListGroupItem >XXXXXXXXX</ListGroupItem>
-                                    <ListGroupItem >XXXXXXXXXXX</ListGroupItem>
+                        <Col  md={{ span: 3, offset: 2 }}>
+                            <div className="listgroup-div">
+                                <ListGroup variant="flush">
+                                    <ListGroup.Item variant="primary" style={{fontSize: 'calc(1.3vw)'}}>Possible Diagnosis</ListGroup.Item>
+                                    <div className="listgroup-item-div">
+                                        {this.state.Loading ? 
+                                        <div className="listgroup-loading">
+                                            <Spinner animation="border" variant="info" />
+                                        </div> :
+                                        this.state.Diagnosis.map(diagnosis => {
+                                            return (
+                                                <div className="single-tile-div">
+                                                    <ListGroup.Item>
+                                                        <h3 className="single-tile-div-name">{diagnosis.Issue.Name}</h3>
+                                                    </ListGroup.Item>
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
                                 </ListGroup>
                             </div>
                         </Col>
                     </Row>
+
+                    {this.state.Loading ? null : 
+                    <Row style={{marginTop: 'calc(10vh)'}}>
+                        <Col md={{ span: 3, offset: 5 }}>
+                        <Link to={ROUTES.CLINICS}>
+                            <Button 
+                                variant="primary"
+                                type="submit"
+                                >Next: Find nearest clinic</Button>
+                        </Link>
+                        </Col>
+                    </Row>}
 
                 </Container>
                
