@@ -11,6 +11,7 @@ const Example = (props) => {
         <BreadcrumbItem ><Link to='/symptoms' className="Symptoms">Symptoms</Link></BreadcrumbItem>
         <BreadcrumbItem ><Link to='/symptomlist' className="SymptomList">More Symptoms</Link></BreadcrumbItem>
         <BreadcrumbItem ><Link to='/preliminarydiagnosis' className="Priliminarydiagnosis">Preliminary Diagnosis</Link></BreadcrumbItem>
+        <BreadcrumbItem ><Link to='/clinics_near_me' className="Clinics">Clinics</Link></BreadcrumbItem>
       </Breadcrumb>
     </div>
   );
