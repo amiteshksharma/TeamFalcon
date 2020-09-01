@@ -13,9 +13,11 @@ class PreliminaryDiagnosis extends React.Component {
         const getBodyPartsID = localStorage.getItem('symptomIds');
         const getBodyParts = localStorage.getItem('symptom-body');
 
+        
+
         this.state = {
             MySymptoms: [],
-            SymptomsList: getSymptoms !== null && getSymptoms !== undefined  && getSymptoms !== 'undefined' ? JSON.parse(getSymptoms) : [],
+            SymptomsList: getSymptoms !== null && getSymptoms !== undefined  && getSymptoms !== 'undefined' && getSymptoms !== 'null' ? JSON.parse(getSymptoms) : [],
             BodyPartsId: getBodyPartsID !== null && getBodyPartsID !== undefined  && getBodyPartsID !== 'undefined' ? JSON.parse(getBodyPartsID) : [],
             BodyParts: getBodyParts !== null && getBodyParts !== undefined  && getBodyParts !== 'undefined' ? JSON.parse(getBodyParts) : [],
             Diagnosis: [],
