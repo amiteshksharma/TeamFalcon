@@ -1,8 +1,9 @@
 import React from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col, Button, ProgressBar } from 'react-bootstrap';
 import ButtonTab from '../components/ButtonTab';
 import SelectedTab from '../components/SelectedTab';
 import '../css/Symptoms.css';
+import '../App.css';
 import Breadcrumbs from './Breadcrumbs';
 import { Link } from "react-router-dom";
 import { ROUTES } from "../routes";
@@ -62,7 +63,7 @@ class Symptoms extends React.Component {
           </section>
 
         <Container>
-          <Row style={{marginTop: 'calc(12vh)'}}>
+          <Row style={{marginTop: 'calc(8vh)'}}>
             <ButtonTab array={this.state.MarkedSymptoms} nameArray={this.state.NameSymptoms} id={16} updateArray={this.updateMarkedSymptoms} type={"Abdomen"}/>
             <ButtonTab array={this.state.MarkedSymptoms} nameArray={this.state.NameSymptoms} id={16} updateArray={this.updateMarkedSymptoms} type={"Pelvis"}/>
             <ButtonTab array={this.state.MarkedSymptoms} nameArray={this.state.NameSymptoms }id={16} updateArray={this.updateMarkedSymptoms} type={"Buttocks"}/>
@@ -70,7 +71,7 @@ class Symptoms extends React.Component {
             <ButtonTab array={this.state.MarkedSymptoms} nameArray={this.state.NameSymptoms} id={7} updateArray={this.updateMarkedSymptoms} type={"Shoulder"}/>
           </Row>
 
-          <Row style={{marginTop: 'calc(10vh)'}}>
+          <Row style={{marginTop: 'calc(8vh)'}}>
             <ButtonTab array={this.state.MarkedSymptoms} nameArray={this.state.NameSymptoms} id={6} updateArray={this.updateMarkedSymptoms} type={"Head"}/>
             <ButtonTab array={this.state.MarkedSymptoms} nameArray={this.state.NameSymptoms} id={6} updateArray={this.updateMarkedSymptoms} type={"Throat"}/>
             <ButtonTab array={this.state.MarkedSymptoms} nameArray={this.state.NameSymptoms} id={6} updateArray={this.updateMarkedSymptoms} type={"Neck"}/>
@@ -78,14 +79,14 @@ class Symptoms extends React.Component {
             <ButtonTab array={this.state.MarkedSymptoms} nameArray={this.state.NameSymptoms} id={17} updateArray={this.updateMarkedSymptoms} type={"Skin"}/>
           </Row>
 
-          <Row style={{marginTop: 'calc(10vh)'}}>
+          <Row style={{marginTop: 'calc(8vh)'}}>
             <ButtonTab array={this.state.MarkedSymptoms} nameArray={this.state.NameSymptoms} id={15} updateArray={this.updateMarkedSymptoms} type={"Chest"} offset={2}/>
             <ButtonTab array={this.state.MarkedSymptoms} nameArray={this.state.NameSymptoms} id={15} updateArray={this.updateMarkedSymptoms} type={"Back"}/>
             <ButtonTab array={this.state.MarkedSymptoms} nameArray={this.state.NameSymptoms} id={17} updateArray={this.updateMarkedSymptoms} type={"Joints"}/>
             <ButtonTab array={this.state.MarkedSymptoms} nameArray={this.state.NameSymptoms} id={17} updateArray={this.updateMarkedSymptoms} type={"General"}/>
           </Row>
 
-          <Row style={{marginTop: 'calc(17vh)'}}>
+          <Row style={{marginTop: 'calc(12vh)'}}>
             <Col md={{ span: 3, offset: 5 }}>
               <Link to={ROUTES.SYMPTOM_LIST}>
                 <Button 
@@ -101,6 +102,12 @@ class Symptoms extends React.Component {
             </Col>
           </Row>
         </Container>
+
+        <div className="progress-bar-div">
+          <div className="progress-bar-div-center">
+            <ProgressBar now={40} label={"40%"} />
+          </div>
+        </div>
       </div>
 
     )

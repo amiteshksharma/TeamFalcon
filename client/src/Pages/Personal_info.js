@@ -1,9 +1,11 @@
 import React from 'react';
-import { Container, Form, Col, Button, Card } from "../../node_modules/react-bootstrap";
+import { Container, Form, Col, Button, Card, ProgressBar } from "../../node_modules/react-bootstrap";
 import {Link} from "react-router-dom";
 import { ROUTES } from "../routes";
 import "bootstrap/dist/css/bootstrap.css";
 import "../css/personal_info.css";
+// For the progress bar
+import "../App.css";
 
 const INITIAL_STATE = {
   firstName: '',
@@ -130,6 +132,13 @@ class Personal_info extends React.Component{
         </Card>
       
       </Container>
+
+      <div className="progress-bar-div">
+        <div className="progress-bar-div-center">
+          <ProgressBar now={20} label={"20%"} />
+        </div>
+      </div>
+
     </React.Fragment>
     ); 
   }

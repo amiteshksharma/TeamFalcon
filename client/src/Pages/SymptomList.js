@@ -1,11 +1,12 @@
 import React from 'react';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
-import { Container, Row, Col, Spinner, Button } from "react-bootstrap";
+import { Container, Row, Col, Spinner, Button, ProgressBar } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import { ROUTES } from "../routes";
 import SelectedTab from '../components/SelectedTab';
 import '../css/SymptomList.css';
+import '../App.css'
 
 const animatedComponents = makeAnimated();
 
@@ -109,6 +110,12 @@ class SymptomList extends React.Component {
                         </Col>
                     </Row>
                 </Container>
+
+                <div className="progress-bar-div">
+                    <div className="progress-bar-div-center">
+                        <ProgressBar now={60} label={"60%"} />
+                    </div>
+                </div>
             </div>
         )
     }

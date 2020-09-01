@@ -1,9 +1,10 @@
 import React from 'react';
-import { Container, Row, Col, ListGroup, Spinner, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col, ListGroup, Spinner, Card, Button, ProgressBar } from 'react-bootstrap';
 import SelectedTab from '../components/SelectedTab';
 import { Link } from 'react-router-dom';
 import { ROUTES } from "../routes";
 import '../css/Diagnosis.css';
+import '../App.css';
 
 class PreliminaryDiagnosis extends React.Component {
     constructor(props) {
@@ -132,6 +133,13 @@ class PreliminaryDiagnosis extends React.Component {
                     </Row>}
 
                 </Container>
+
+                {this.state.Loading ? null : 
+                <div className="progress-bar-div">
+                    <div className="progress-bar-div-center">
+                        <ProgressBar now={80} label={"80%"} />
+                    </div>
+                </div>}
                
             </div>
         );
