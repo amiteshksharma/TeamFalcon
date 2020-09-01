@@ -95,6 +95,8 @@ class Symptoms extends React.Component {
                         localStorage.setItem('symptomIds', JSON.stringify(uniqueIds));
                         localStorage.setItem('symptom-body', JSON.stringify(this.state.NameSymptoms))
                       }}
+                      style={{backgroundColor: '#FE817B', border: 'none', borderRadius: 'calc(1vw)', 
+                      paddingRight: 'calc(1.5vw)', paddingLeft: 'calc(1.5vw)'}}
                       variant="primary"
                       type="submit"
                       disabled={this.state.isDisabled}>Next: Select Symptoms</Button>

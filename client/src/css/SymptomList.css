@@ -36,12 +36,29 @@
     flex-wrap: wrap;
 }
 
+/* #root > div:nth-child(3) > section.select-section > div > div > div > div.css-g1d714-ValueContainer > div > div {
+    background-color: transparent;
+    border: 1px solid black;
+}
+
+#root > div:nth-child(3) > section.select-section > div > div > div > div.css-g1d714-ValueContainer > div.css-b8ldur-Input {
+    border: none !important;
+} */
+
+#root > div:nth-child(3) > section.select-section > div > div > div > div.css-g1d714-ValueContainer > div > div > div:first-child {
+    color: #789E9E;
+}
+
+#root > div:nth-child(3) > section.select-section > div > div > div > div.css-g1d714-ValueContainer > div > div {
+    background-color: transparent;
+}
 
 /* The SelectedTab will share the same css file as the SymptomList page */
 .tab-div {
     display: flex;
     flex-direction: row;
-    background-color: rgb(199, 194, 194);
+    background-color: #789E9E;
+    color: white;
     margin-right: calc(1vw);
     margin-bottom: calc(1vh);
     border-radius: calc(10px);

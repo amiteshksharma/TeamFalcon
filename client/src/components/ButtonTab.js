@@ -32,7 +32,8 @@ export default function ButtonTab(props) {
                     isMarked({Marked: false});
                 }
             }}
-            style={{fontSize: 'calc(1.2vw)', width: 'calc(8.5vw)', backgroundColor: marked.Marked ? 'rgb(168, 90, 50)' : null}}
+            style={{fontSize: 'calc(1.2vw)', width: 'calc(8.5vw)', backgroundColor: marked.Marked ? '#789E9E' : '#B7D8D6', 
+            border: 'none', borderRadius: 'calc(1vw)', color: 'black'}}
             >{name}</Button>
         </Col>
     )

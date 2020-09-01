@@ -20,11 +20,12 @@ export default function SelectedTab(props) {
     }
 
     return (
-        <div className="tab-div">
-            <h3 className="tab-div-name">{name}</h3>  
+        <div className="tab-div" style={{paddingRight: props.isDiagnosis ? 'calc(1.5vw)' : null}}>
+            <h3 className="tab-div-name" >{name}</h3>  
+            {props.isDiagnosis ? null : 
             <div className="remove-tab-div" onClick={() => handleClick()}>
                 <h2 className="remove-tab">X</h2> 
-            </div>
+            </div>}
         </div>
     )
 }
