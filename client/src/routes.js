@@ -3,5 +3,6 @@ export const ROUTES = {
     LANDING: "/",
     INFO: "/personal_info",
     SYMPTOMS: "/symptoms",
-    SYMPTOM_LIST: "/symptomlist"
+    SYMPTOM_LIST: "/symptomlist",
+    PreliminaryDiagnosis: "/preliminarydiagnosis"
   };

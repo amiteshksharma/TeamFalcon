@@ -14,6 +14,7 @@ const Navigation = () => (
         <Nav className="mr-auto">
           <Nav.Link href={ROUTES.INFO}>INFO</Nav.Link>
           <Nav.Link href={ROUTES.SYMPTOMS}>SYMPTOMS</Nav.Link>
+          <Nav.Link href={ROUTES.PreliminaryDiagnosis}>PRELIMINARY DIAGNOSIS</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

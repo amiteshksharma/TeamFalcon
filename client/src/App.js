@@ -13,6 +13,7 @@ import Landing from "./Pages/Landing";
 import Symptoms from "./Pages/Symptoms";
 import SymptomList from "./Pages/SymptomList";
 import Breadcrumbs from "./Pages/Breadcrumbs";
+import PreliminaryDiagnosis from  './Pages/PreliminaryDiagnosis';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route exact path={ROUTES.INFO} component={Personal_info} />
           <Route exact path={ROUTES.SYMPTOMS} component={Symptoms} />
           <Route exact path={ROUTES.SYMPTOM_LIST} component={SymptomList} />
+          <Route exact path={ROUTES.PreliminaryDiagnosis} component={PreliminaryDiagnosis} />
         </Switch>
       </Router>
     </React.Fragment>

@@ -10,6 +10,7 @@ const Example = (props) => {
         <BreadcrumbItem><Link to='/personal_info' className="Info">Info</Link></BreadcrumbItem>
         <BreadcrumbItem ><Link to='/symptoms' className="Symptoms">Symptoms</Link></BreadcrumbItem>
         <BreadcrumbItem ><Link to='/symptomlist' className="SymptomList">More Symptoms</Link></BreadcrumbItem>
+        <BreadcrumbItem ><Link to='/preliminarydiagnosis' className="Priliminarydiagnosis">Preliminary Diagnosis</Link></BreadcrumbItem>
       </Breadcrumb>
     </div>
   );
