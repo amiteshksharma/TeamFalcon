@@ -6,7 +6,7 @@ import location from '../css/location.png';
 import contact from '../css/contact.png';
 import Navigation from './Navigation';
 import LOGO from '../logo.png';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Spinner } from 'react-bootstrap';
 
 import '../css/confirmation.css';
 
@@ -17,6 +17,9 @@ console.log(getUserDetails);
 class Confirmation extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            Loading: true
+        }
 
         this.formatDate = this.formatDate.bind(this);
     }
@@ -26,11 +29,20 @@ class Confirmation extends React.Component {
         return array[1] + "/" + array[2] + "/" + array[0]
     }
 
+    componentDidMount() {
+        setTimeout(() => {
+            this.setState({Loading: false});    
+        }, 3500)
+    }
+
     render() {
         return (
-
             <div>
                 <Navigation logo={LOGO} />
+                {this.state.Loading ?  
+                <div className="spinner-confirmation">
+                    <Spinner animation="border" variant="success" />
+                </div> : 
 
                 <Container style={{ marginLeft: '34%' }}>
                     <Row style={{ fontSize: '30px' }} >
@@ -82,7 +94,7 @@ class Confirmation extends React.Component {
                         </Col>
                     </Row>   
                 </Container>
-
+                }
             </div>
 
         );

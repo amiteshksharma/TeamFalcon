@@ -1,0 +1,6 @@
+.spinner-confirmation {
+    position: absolute;
+    left: calc(49%);
+    top: calc(20vh);
+    transform: scale(1.4);
+}
