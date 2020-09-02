@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import { ROUTES } from "../routes";
 import NumGenerator from "../components/NumGenerator";
 import Navigation from './Navigation';
+import MyChart from '../components/MyChart';
 import LOGO from '../logo.png';
 import "bootstrap/dist/css/bootstrap.css";
 import '../css/clinics_near_me.css';
@@ -102,41 +103,7 @@ const List = ({ list }) => (
     ))}
   </ul>
 );
-/*
-function MyChart( item ){
 
-    const data = React.useMemo(
-        () => [
-          {
-            label: 'Series 1',
-            data: [item.data]
-          },
-        ],
-        []
-      )
- 
-  const axes = React.useMemo(
-    () => [
-      { primary: true, type: 'linear', position: 'bottom' },
-      { type: 'linear', position: 'left' }
-    ],
-    []
-  )
- 
-  const lineChart = (
-    // A react-chart hyper-responsively and continuously fills the available
-    // space of its parent element automatically
-    <div
-      style={{
-        width: '400px',
-        height: '300px'
-      }}
-    >
-      <Chart data={data} axes={axes} />
-    </div>
-  )
-}
-*/
 const ListItem = ({ item  }) => (
     <React.Fragment>
         <Container class="shadow p-3 mb-5 bg-white rounded" style={{paddingBottom: '5vh'}}>
@@ -168,6 +135,9 @@ const ListItem = ({ item  }) => (
                             Reserve Appointment
                         </Button>
                     </Link>
+                </div>
+                <div style={{width: "25vw"}}>
+                    <MyChart/>
                 </div>
             </Card>
         </div>    
