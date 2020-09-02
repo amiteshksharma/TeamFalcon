@@ -1,6 +1,6 @@
-.title{
+.title-h1 {
     text-align: center;
-    padding-bottom: 5vh;
-    padding-top: 5vh;
+    padding-bottom: calc(1vh);
+    padding-top: calc(2vh);
     font-weight: bold;
 }

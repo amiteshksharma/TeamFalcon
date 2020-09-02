@@ -6,7 +6,7 @@ import location from '../css/location.png';
 import contact from '../css/contact.png';
 import Navigation from './Navigation';
 import LOGO from '../logo.png';
-import { Container, Row, Col, Spinner } from 'react-bootstrap';
+import { Container, Row, Col, Spinner, ProgressBar } from 'react-bootstrap';
 
 import '../css/confirmation.css';
 
@@ -95,6 +95,11 @@ class Confirmation extends React.Component {
                     </Row>   
                 </Container>
                 }
+                <div className="progress-bar-div">
+                    <div className="progress-bar-div-center">
+                        <ProgressBar now={100} label={"100%"} />
+                    </div>
+                </div>
             </div>
 
         );

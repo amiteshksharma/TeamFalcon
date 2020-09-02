@@ -230,7 +230,7 @@ class Personal_info extends React.Component{
 
       <div className="progress-bar-div">
         <div className="progress-bar-div-center">
-          <ProgressBar now={20} label={"20%"} />
+          <ProgressBar now={16} label={"16%"} />
         </div>
       </div>
 

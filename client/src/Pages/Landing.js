@@ -12,9 +12,10 @@ class Landing extends React.Component {
       <div className="background-div">
       <Navigation logo={LOGO} />
         <div className="text-center">
-          <h1 className="title">Welcome to this Website</h1>
-          <p align="center">This website is dedicated to help people that are
-          in need of a doctor's appointment</p>
+          <h1 className="title">Your new digital healthcare partner</h1>
+          <div className="p-body-div">
+            <p align="center">Falcon is a revolutionary optimization tool that helps you receive preliminary diagnoses and book your medical appointments</p>
+          </div>
           <Link to={ROUTES.INFO}>
             <Button 
                   onClick={()=>{

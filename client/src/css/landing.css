@@ -10,14 +10,22 @@
     text-align:center;
     font-size: calc(2.5vw);
 }
+
 .text-center{
     padding-top: calc(6vh);
     text-align: center;
     color: white;
 }
 
+.p-body-div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 .text-center p {
     font-size: calc(1.3vw);
+    width: calc(36vw);
 }
 
 .background-div .btn {

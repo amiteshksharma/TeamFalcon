@@ -147,7 +147,7 @@ class PreliminaryDiagnosis extends React.Component {
                 {this.state.Loading ? null : 
                 <div className="progress-bar-div">
                     <div className="progress-bar-div-center">
-                        <ProgressBar now={80} label={"80%"} />
+                        <ProgressBar now={65} label={"65%"} />
                     </div>
                 </div>}
                

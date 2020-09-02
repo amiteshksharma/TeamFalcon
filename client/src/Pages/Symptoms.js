@@ -109,7 +109,7 @@ class Symptoms extends React.Component {
 
         <div className="progress-bar-div">
           <div className="progress-bar-div-center">
-            <ProgressBar now={40} label={"40%"} />
+            <ProgressBar now={33} label={"33%"} />
           </div>
         </div>
       </div>

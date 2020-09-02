@@ -1,11 +1,12 @@
 import React from 'react';
-import { Card, Container, Button } from 'react-bootstrap';
+import { Card, Container, Button, ProgressBar } from 'react-bootstrap';
 import {Link} from "react-router-dom";
 import { ROUTES } from "../routes";
 import NumGenerator from "../components/NumGenerator";
 import Navigation from './Navigation';
 import LOGO from '../logo.png';
 import "bootstrap/dist/css/bootstrap.css";
+import '../css/clinics_near_me.css';
 
 
 const list = [
@@ -87,7 +88,7 @@ class Clinics extends React.Component{
         return(
         <React.Fragment>
           <Navigation logo={LOGO} />
-            <h1 class= "title">Closest Walk-In Medical Facilities:</h1>
+            <h1 class="title-h1">Closest Walk-In Medical Facilities:</h1>
             <List list={list} />
         </React.Fragment>
         );
@@ -95,7 +96,7 @@ class Clinics extends React.Component{
 }
  
 const List = ({ list }) => (
-  <ul style={{overflowY: 'scroll', maxHeight: 'calc(65vh)'}}>
+  <ul style={{overflowY: 'scroll', maxHeight: 'calc(67vh)'}}>
     {list.map(item => (
       <ListItem key={item.id} item={item} />
     ))}
@@ -171,6 +172,11 @@ const ListItem = ({ item  }) => (
             </Card>
         </div>    
         </Container>
+        <div className="progress-bar-div">
+            <div className="progress-bar-div-center">
+                <ProgressBar now={81} label={"81%"} />
+            </div>
+        </div>
     </React.Fragment>
 );
 
