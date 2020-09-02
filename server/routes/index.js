@@ -26,7 +26,7 @@ router.post('/diagnosis', function(req, res, next) {
 
   console.log(req.body);
 
-  fetch(`https://healthservice.priaid.ch/diagnosis?symptoms=${jsonify}&gender=${gender}&year_of_birth=${year}&token=${process.env.SECRET_KEY}&format=json&language=en-gb`, {
+  fetch(`https://healthservice.priaid.ch/diagnosis?symptoms=${jsonify}&gender=${gender}&year_of_birth=${year}&token=${process.env.DIAGNOSIS_KEY}&format=json&language=en-gb`, {
     method: 'GET'
   })
     .then(response => response.json())
