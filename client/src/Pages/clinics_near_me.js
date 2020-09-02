@@ -2,7 +2,9 @@ import React from 'react';
 import { Card, Container, Button } from 'react-bootstrap';
 import {Link} from "react-router-dom";
 import { ROUTES } from "../routes";
+import NumGenerator from "../components/NumGenerator";
 import "bootstrap/dist/css/bootstrap.css";
+
 
 const list = [
     {
@@ -13,6 +15,7 @@ const list = [
         hours: '9:30 a.m.-5p.m. Monday - Friday',
         phone: '(416) 929-1530',
         website: '',
+        data: [{ x: 1, y: 13 }, { x: 2, y: 10 }, { x: 3, y: 20 }],
     },
     {
         id:'2',
@@ -69,37 +72,17 @@ const list = [
         website: 'http://sanomedclinic.ca/',
     },
 ];
-/*
-class Clinics extends React.Component {
+
+class Clinics extends React.Component{
     render(){
         return(
-            <React.Fragment>
-            <Container>
-                <h1 class= "title">Closest Walk-In Medical Facilities:</h1>
-                <Card style={{padding: '20px'}}>
-                    {list.map(item => (
-                        <li key={item.id}>
-                            <div>{item.id}</div>
-                            <div>{item.name}</div>
-                            <div>{item.address}</div>
-                            <div>{item.phone}</div>
-                            <div>{item.website}</div>
-                        </li>
-                    ))}
-                </Card>
-            </Container>
-            </React.Fragment>
+        <React.Fragment>
+            <h1 class= "title">Closest Walk-In Medical Facilities:</h1>
+            <List list={list} />
+        </React.Fragment>
         );
     }
 }
-*/
-
-const Clinics = () =>(
-    <React.Fragment>
-        <h1 class= "title">Closest Walk-In Medical Facilities:</h1>
-        <List list={list} />
-    </React.Fragment>
-);
  
 const List = ({ list }) => (
   <ul>
@@ -108,7 +91,41 @@ const List = ({ list }) => (
     ))}
   </ul>
 );
+/*
+function MyChart( item ){
 
+    const data = React.useMemo(
+        () => [
+          {
+            label: 'Series 1',
+            data: [item.data]
+          },
+        ],
+        []
+      )
+ 
+  const axes = React.useMemo(
+    () => [
+      { primary: true, type: 'linear', position: 'bottom' },
+      { type: 'linear', position: 'left' }
+    ],
+    []
+  )
+ 
+  const lineChart = (
+    // A react-chart hyper-responsively and continuously fills the available
+    // space of its parent element automatically
+    <div
+      style={{
+        width: '400px',
+        height: '300px'
+      }}
+    >
+      <Chart data={data} axes={axes} />
+    </div>
+  )
+}
+*/
 const ListItem = ({ item  }) => (
     
     <React.Fragment>
@@ -123,7 +140,7 @@ const ListItem = ({ item  }) => (
                 <div>
                     <span style={{fontWeight: 'bold'}}>Hours: </span>
                     {item.hours}
-                    <span style={{float: "right", fontWeight: "bold", fontSize: "110%"}}>0 Minutes</span>
+                    <span style={{float: "right", fontWeight: "bold", fontSize: "110%"}}> <NumGenerator /> Minutes</span>
                 </div>
                 <div>
                     <span style={{fontWeight: 'bold'}}>Phone: </span>
@@ -133,7 +150,7 @@ const ListItem = ({ item  }) => (
                     {item.website.length > 0 && <span style={{fontWeight: 'bold'}}>Website: <a href={item.website} >{item.website}</a></span>}
                     <Link to={ROUTES.CONFIRMATION}>
                         <Button 
-                            style={{float: "right"}} 
+                            style={{float: "right", borderRadius: '2vh', background: "#789E9E"}} 
                             variant="secondary" 
                             type="submit" 
                             size="lg">
