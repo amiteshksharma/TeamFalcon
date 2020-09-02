@@ -10,15 +10,13 @@ import { Container, Row, Col, Spinner, ProgressBar } from 'react-bootstrap';
 
 import '../css/confirmation.css';
 
-const getClinicDetails = JSON.parse(localStorage.getItem('clinic'));
-const getUserDetails = JSON.parse(localStorage.getItem('user'));
-console.log(getUserDetails);
-
 class Confirmation extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            Loading: true
+            Loading: true,
+            getClinicDetails: JSON.parse(localStorage.getItem('getClinic')),
+            getUserDetails: JSON.parse(localStorage.getItem('user'))
         }
 
         this.formatDate = this.formatDate.bind(this);
@@ -74,13 +72,13 @@ class Confirmation extends React.Component {
                             <Media left href="#" style={{ marginRight: '30px' }}>
                                 <Media object src={location} style={{ width: "50px" }} />
                             </Media>
-                            <strong>{getClinicDetails.name} · {getClinicDetails.distance} </strong>
+                            <strong>{this.state.getClinicDetails.name} · {this.state.getClinicDetails.distance} </strong>
                             <p style={{ marginLeft: '80px' }}> 
-                            Address: {getClinicDetails.address}<br />
-                            Hours: {getClinicDetails.hours} <br /> 
-                            {getClinicDetails.days} <br /> 
-                            Phone: {getClinicDetails.phone}<br />
-                            Website: {getClinicDetails.website}</p>
+                            Address: {this.state.getClinicDetails.address}<br />
+                            Hours: {this.state.getClinicDetails.hours} <br /> 
+                            {this.state.getClinicDetails.days} <br /> 
+                            Phone: {this.state.getClinicDetails.phone}<br />
+                            Website: {this.state.getClinicDetails.website}</p>
 
                         </Col>
                     </Row>
@@ -90,8 +88,8 @@ class Confirmation extends React.Component {
                             <Media left href="#" style={{ marginRight: '30px' }}>
                                 <Media object src={contact} style={{ width: "50px" }} />
                             </Media>
-                            <strong>{getUserDetails.first_name + " " + getUserDetails.last_name} </strong>
-                            <p style={{ marginLeft: '80px' }}>Email: {getUserDetails.email} <br />DOB: {this.formatDate(getUserDetails.date)}<br /> </p>
+                            <strong>{this.state.getUserDetails.first_name + " " + this.state.getUserDetails.last_name} </strong>
+                            <p style={{ marginLeft: '80px' }}>Email: {this.state.getUserDetails.email} <br />DOB: {this.formatDate(this.state.getUserDetails.date)}<br /> </p>
                         </Col>
                     </Row>   
                 </Container>

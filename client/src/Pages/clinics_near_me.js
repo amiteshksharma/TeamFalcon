@@ -131,7 +131,7 @@ const ListItem = ({ item  }) => (
                             variant="secondary" 
                             type="submit" 
                             size="lg"
-                            onClick={() => localStorage.setItem('clinic', JSON.stringify(item))}>
+                            onClick={() => localStorage.setItem('getClinic', JSON.stringify(item))}>
                             Reserve Appointment
                         </Button>
                     </Link>
