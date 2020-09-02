@@ -5,8 +5,8 @@ const fetch = require('node-fetch')
 
 /* GET home page. */
 router.get('/symptoms', function(req, res, next) {
-  const string = 'https://sandbox-healthservice.priaid.ch'
-  // const string = 'https://healthservice.priaid.ch'
+  // const string = 'https://sandbox-healthservice.priaid.ch'
+  const string = 'https://healthservice.priaid.ch'
   fetch(`${string}/symptoms?token=${process.env.SECRET_KEY}&format=json&language=en-gb`)
     .then(response => response.json())
     .then(data => {

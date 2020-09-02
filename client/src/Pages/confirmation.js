@@ -31,7 +31,8 @@ class Confirmation extends React.Component {
 
     componentDidMount() {
         setTimeout(() => {
-            this.setState({Loading: false});    
+            this.setState({Loading: false});  
+            localStorage.clear();  
         }, 3500)
     }
 
