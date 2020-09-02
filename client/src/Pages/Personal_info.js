@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Container, Form, Col, Button, Card, ProgressBar } from "../../node_modules/react-bootstrap";
 import {Link} from "react-router-dom";
 import { ROUTES } from "../routes";
@@ -7,37 +7,103 @@ import "../css/personal_info.css";
 // For the progress bar
 import "../App.css";
 
-const INITIAL_STATE = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  gender:'',
-  date: '',
-  location: '',
-  error: null,
-};
-
 class Personal_info extends React.Component{
 
-  constructor(props){
-    super(props);
-    this.state = { ...INITIAL_STATE };
+  userData;
+
+  constructor(props) {
+      super(props);
+
+      this.onChangeFirstName = this.onChangeFirstName.bind(this);
+      this.onChangeLastName = this.onChangeLastName.bind(this);
+      this.onChangeEmail = this.onChangeEmail.bind(this);
+      this.onChangeGender = this.onChangeGender.bind(this);
+      this.onChangeDate = this.onChangeDate.bind(this);
+      this.onChangeLocation = this.onChangeLocation.bind(this);
+      this.onSubmit = this.onSubmit.bind(this);
+
+      this.state = {
+          first_name: '',
+          last_name: '',
+          email: '',
+          gender: '',
+          date: '',
+          location: '',
+          error: null
+      }
   }
 
-  onSubmit = event => {
-    const { ...INITIAL_STATE } = this.state;
+  // Form Events
+  onChangeFirstName(e) {
+    this.setState({ first_name: e.target.value })
+  }
 
-    event.preventDefault();
-  };
+  onChangeLastName(e) {
+    this.setState({ last_name: e.target.value })
+  }
 
-  handleChange = ({ target }) => {
-    this.setState({ [target.name]: target.value });
-  };
+  onChangeEmail(e) {
+    this.setState({ email: e.target.value })
+  }
+
+  onChangeGender(e) {
+    this.setState({ gender: e.target.value })
+  }
+
+  onChangeDate(e) {
+    this.setState({ date: e.target.value })
+  }
+
+  onChangeLocation(e) {
+    this.setState({ location: e.target.value })
+  }
+
+  onSubmit(e) {
+    e.preventDefault()
+
+    this.setState({
+        first_name: '',
+        last_name: '',
+        email: '',
+        gender: '',
+        date: '',
+        location: ''
+    })
+  }
+
+  // React Life Cycle
+  componentDidMount() {
+    this.userData = JSON.parse(localStorage.getItem('user'));
+
+    if (localStorage.getItem('user')) {
+        this.setState({
+            first_name: this.userData.first_name,
+            last_name: this.userData.last_name,
+            email: this.userData.email,
+            gender: this.userData.gender,
+            date: this.userData.date,
+            location: this.userData.location
+        })
+    } else {
+        this.setState({
+          first_name: '',
+          last_name: '',
+          email: '',
+          gender: '',
+          date: '',
+          location: ''
+        })
+    }
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+      localStorage.setItem('user', JSON.stringify(nextState));
+  }
 
   render() {
     const {
-      firstName,
-      lastName,
+      first_name,
+      last_name,
       email,
       gender,
       date,
@@ -46,8 +112,8 @@ class Personal_info extends React.Component{
     } = this.state;
 
     const isInvalid =
-    firstName === '' || lastName === '' ||
-    email === '' || date === '' || location === '' || gender === '';
+      first_name === '' || last_name === '' ||
+      email === '' || date === '' || location === '' || gender === '';
 
     return(
 
@@ -62,8 +128,8 @@ class Personal_info extends React.Component{
               <Form.Label class="font-weight-bold">First Name</Form.Label>
               <Form.Control 
                   name="firstName"
-                  value={firstName}
-                  onChange={this.handleChange}
+                  value={this.state.first_name}
+                  onChange={this.onChangeFirstName}
                   type="text" 
                   style={{borderRadius: '5vw', background: "#EAE9E9"}}
               />
@@ -73,8 +139,8 @@ class Personal_info extends React.Component{
               <Form.Label class="font-weight-bold">Last Name</Form.Label>
               <Form.Control 
                   name="lastName"
-                  value={lastName}
-                  onChange={this.handleChange}
+                  value={this.state.last_name}
+                  onChange={this.onChangeLastName}
                   type="text"
                   style={{borderRadius: '5vw', background: "#EAE9E9"}}
               />
@@ -85,8 +151,8 @@ class Personal_info extends React.Component{
             <Form.Label class="font-weight-bold">Email Address</Form.Label>
             <Form.Control
                 name="email"
-                value={email}
-                onChange={this.handleChange}
+                value={this.state.email}
+                onChange={this.onChangeEmail}
                 type="email"
                 placeholder="name@example.com"
                 style={{borderRadius: '5vw', background: "#EAE9E9"}}
@@ -97,8 +163,8 @@ class Personal_info extends React.Component{
             <Form.Label class="font-weight-bold">Date of Birth</Form.Label>
             <Form.Control 
                 name="date"
-                value={date}
-                onChange={this.handleChange}
+                value={this.state.date}
+                onChange={this.onChangeDate}
                 type="date" 
                 placeholder= "YYYY-MM-DD" 
                 style={{borderRadius: '5vw', background:"#EAE9E9"}}
@@ -110,8 +176,8 @@ class Personal_info extends React.Component{
             <Form.Control
                 as="select"
                 name="gender"
-                value={gender}
-                onChange={this.handleChange}
+                value={this.state.gender}
+                onChange={this.onChangeGender}
                 type="gender"
                 placeholder="Select"
                 style={{borderRadius: '5vw', background: "#EAE9E9"}}
@@ -129,8 +195,8 @@ class Personal_info extends React.Component{
               <Form.Label class="font-weight-bold">Location</Form.Label>
               <Form.Control 
                 name="location"
-                value={location}
-                onChange={this.handleChange}
+                value={this.state.location}
+                onChange={this.onChangeLocation}
                 type="text"
                 placeholder="Zip Code" 
                 maxLength={6}
