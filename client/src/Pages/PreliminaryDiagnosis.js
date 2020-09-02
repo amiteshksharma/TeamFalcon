@@ -61,8 +61,8 @@ class PreliminaryDiagnosis extends React.Component {
             },
             body: JSON.stringify({
                 Symptoms: ids,
-                Gender: userDetails.gender,
-                Age: userDetails.date.substring(0, 4)
+                Gender: userDetails.gender.toLowerCase(),
+                Age: parseInt(userDetails.date.substring(0, 4))
             })   
         }).then(response => response.json())
         .then(data => {
