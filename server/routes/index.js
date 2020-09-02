@@ -5,9 +5,12 @@ const fetch = require('node-fetch')
 
 /* GET home page. */
 router.get('/symptoms', function(req, res, next) {
-  fetch(`https://healthservice.priaid.ch/symptoms?token=${process.env.SECRET_KEY}&format=json&language=en-gb`)
+  const string = 'https://sandbox-healthservice.priaid.ch'
+  // const string = 'https://healthservice.priaid.ch'
+  fetch(`${string}/symptoms?token=${process.env.SECRET_KEY}&format=json&language=en-gb`)
     .then(response => response.json())
     .then(data => {
+      console.log(data)
       return res.send(data);
     })
     .catch(error => {

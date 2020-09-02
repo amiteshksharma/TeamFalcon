@@ -21,7 +21,6 @@ function App() {
   return (
     //The router navigates to the different pages
       <Router>
-        <Navigation />
         <Breadcrumbs />
         <Switch>
           <Route exact path={ROUTES.LANDING} component={Landing} />

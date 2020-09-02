@@ -5,6 +5,8 @@ import { Container, Row, Col, Spinner, Button, ProgressBar } from "react-bootstr
 import { Link } from 'react-router-dom';
 import { ROUTES } from "../routes";
 import SelectedTab from '../components/SelectedTab';
+import Navigation from './Navigation';
+import LOGO from '../logo.png';
 import '../css/SymptomList.css';
 import '../App.css'
 
@@ -65,8 +67,9 @@ class SymptomList extends React.Component {
         console.log(this.state.NamesList)
         return (
             <div>
+                <Navigation logo={LOGO} />
                 <Container fluid>
-                    <Row style={{marginLeft: 'calc(8vw)'}}>
+                    <Row style={{marginLeft: 'calc(8vw)', marginTop: 'calc(4vh)'}}>
                         <Col md={{ span: 4, offset: 4 }}><h2>What are the symptoms?</h2></Col>
                     </Row>
                 </Container>
@@ -99,7 +102,7 @@ class SymptomList extends React.Component {
                 </section>
 
                 <Container>
-                    <Row style={{marginTop: 'calc(40vh)'}}>
+                    <Row style={{marginTop: 'calc(37vh)'}}>
                         <Col md={{ span: 3, offset: 5 }}>
                         <Link to={ROUTES.PRELIMINARYDIAGNOSIS}>
                             <Button 

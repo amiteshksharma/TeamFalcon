@@ -3,6 +3,8 @@ import { Container, Row, Col, ListGroup, Spinner, Card, Button, ProgressBar } fr
 import SelectedTab from '../components/SelectedTab';
 import { Link } from 'react-router-dom';
 import { ROUTES } from "../routes";
+import Navigation from './Navigation';
+import LOGO from '../logo.png';
 import '../css/Diagnosis.css';
 import '../App.css';
 
@@ -50,6 +52,8 @@ class PreliminaryDiagnosis extends React.Component {
             ids.push(symptoms);
         })
 
+        const userDetails = JSON.parse(localStorage.getItem('user'));
+
         fetch('/diagnosis', {
             method: 'POST',
             headers: {
@@ -57,8 +61,8 @@ class PreliminaryDiagnosis extends React.Component {
             },
             body: JSON.stringify({
                 Symptoms: ids,
-                Gender: 'male',
-                Age: 2000
+                Gender: userDetails.gender,
+                Age: userDetails.date.substring(0, 4)
             })   
         }).then(response => response.json())
         .then(data => {
@@ -72,7 +76,8 @@ class PreliminaryDiagnosis extends React.Component {
     render() {
         return (
             <div>
-                <Container fluid>
+                <Navigation logo={LOGO} />
+                <Container fluid style={{marginTop: 'calc(3vh)'}}>
                     <Row>
                         <Col md={{ span: 2, offset: 1 }}>
                             <div>
@@ -89,7 +94,7 @@ class PreliminaryDiagnosis extends React.Component {
                                             {this.state.SymptomsList.map(symptom => {
                                                 console.log(symptom)
                                                 return (
-                                                    <SelectedTab name={symptom.label} list={this.state.SymptomsList} deletionObj={this.removeName}/>
+                                                    <SelectedTab name={symptom.label} list={this.state.SymptomsList} deletionObj={this.removeName} isDiagnosis={true}/>
                                                 )
                                             })}
                                         </div>

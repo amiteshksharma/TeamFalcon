@@ -4,6 +4,8 @@ import {Link} from "react-router-dom";
 import { ROUTES } from "../routes";
 import "bootstrap/dist/css/bootstrap.css";
 import "../css/personal_info.css";
+import Navigation from './Navigation';
+import LOGO from '../logo.png';
 // For the progress bar
 import "../App.css";
 
@@ -118,8 +120,8 @@ class Personal_info extends React.Component{
     return(
 
       <React.Fragment>
-      
-      <Container>
+      <Navigation logo={LOGO} />
+      <Container style={{marginTop: 'calc(2vh)'}}>
           <Card style={{padding: '20px'}}>
           <h1 class= "title">Let's get some information</h1>
           <Form onSubmit={this.onSubmit}>
@@ -212,11 +214,10 @@ class Personal_info extends React.Component{
                       class="text-center" 
                       onClick={() => {
                         console.log("The button has been clicked");
-                        localStorage.setItem('age', this.state.date.substring(0, 3));
                       }}
                       variant="primary" 
                       type="submit"
-                      style={{borderRadius: '5vw', background: "#FE817B"}}>
+                      style={{borderRadius: '5vw', background: "#FE817B", border: 'none'}}>
                 Next: Select Symptoms
               </Button>
               {error && <p>{error.message}</p>}

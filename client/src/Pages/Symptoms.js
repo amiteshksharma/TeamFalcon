@@ -4,7 +4,8 @@ import ButtonTab from '../components/ButtonTab';
 import SelectedTab from '../components/SelectedTab';
 import '../css/Symptoms.css';
 import '../App.css';
-import Breadcrumbs from './Breadcrumbs';
+import Navigation from './Navigation';
+import LOGO from '../logo.png';
 import { Link } from "react-router-dom";
 import { ROUTES } from "../routes";
 
@@ -46,6 +47,7 @@ class Symptoms extends React.Component {
     console.log(this.state.NameSymptoms)
     return (
       <div className="symptoms-page">
+        <Navigation logo={LOGO} />
         <Container fluid>
           <Row style={{marginTop: 'calc(5vh)'}}>
             <Col md={{ span: 7, offset: 3 }}><h2 className="symptoms-page-h2">Where on the body are you experiencing symptoms (if any)</h2></Col>

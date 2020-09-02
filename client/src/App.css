@@ -20,3 +20,10 @@
 .progress-bar {
   background-color: #789E9E !important;
 }
+
+/* The logo placement */
+.logo-div {
+  width: 100%;
+  display: flex;
+  justify-content: center;  
+}

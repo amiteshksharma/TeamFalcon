@@ -1,13 +1,16 @@
-import React from 'react'
+import React from 'react';
 import { Container, Row, Col, Button} from 'react-bootstrap';
 import { ROUTES } from '../routes';
 import {Link} from "react-router-dom";
+import Navigation from './Navigation';
+import LOGO from '../Logo_group.png';
 import '../css/landing.css';
 
 class Landing extends React.Component {
   render() {
     return (
       <div className="background-div">
+      <Navigation logo={LOGO} />
         <div className="text-center">
           <h1 className="title">Welcome to this Website</h1>
           <p align="center">This website is dedicated to help people that are

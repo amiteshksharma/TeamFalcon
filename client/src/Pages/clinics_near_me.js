@@ -3,6 +3,8 @@ import { Card, Container, Button } from 'react-bootstrap';
 import {Link} from "react-router-dom";
 import { ROUTES } from "../routes";
 import NumGenerator from "../components/NumGenerator";
+import Navigation from './Navigation';
+import LOGO from '../logo.png';
 import "bootstrap/dist/css/bootstrap.css";
 
 
@@ -12,9 +14,10 @@ const list = [
         name: 'Downtown Doctors Walk In Medical Clinic',
         distance: "0.2 mil",
         address: '720 Spadina Ave #100, Toronto, ON M5S 2T9',
-        hours: '9:30 a.m.-5p.m. Monday - Friday',
+        hours: '9:30 a.m.-5p.m.',
+        days: 'Monday - Friday',
         phone: '(416) 929-1530',
-        website: '',
+        website: 'No Website Currently',
         data: [{ x: 1, y: 13 }, { x: 2, y: 10 }, { x: 3, y: 20 }],
     },
     {
@@ -22,7 +25,8 @@ const list = [
         name: 'MCI The Doctors Office Atrium',
         distance: "0.8 mil",
         address: '595 Bay St, Toronto, ON M5G 2C2',
-        hours: '9:00a.m.-6p.m. Monday - Friday',
+        hours: '9:00a.m.-6p.m.',
+        days: 'Monday - Friday',
         phone: '(416) 598-1703',
         website: 'https://mcithedoctorsoffice.ca/locations/atrium',
     },
@@ -31,7 +35,8 @@ const list = [
         name: 'Patient Networks Family Medicine Walk In Clinic',
         address: '157 Yonge St, Toronto, ON M5C 1X7',
         distance: "2.1 mil",
-        hours: '9:00a.m.-4p.m. Monday - Friday',
+        hours: '9:00a.m.-4p.m.',
+        days: 'Monday - Friday',
         phone: '(416) 362-8822',
         website: 'http://www.patientnetworks.ca/',
     },
@@ -40,7 +45,8 @@ const list = [
         name: 'Cloud Care Clinics',
         address: '55 Dundas St E, Toronto, ON M5B 1C6',
         distance: "2.5 mil",
-        hours: '9:30a.m.-5p.m. Monday - Friday',
+        hours: '9:30a.m.-5p.m.',
+        days: 'Monday - Friday',
         phone: '(416) 361-6000',
         website: 'http://cloudcareclinics.ca/',
     },
@@ -49,7 +55,8 @@ const list = [
         name: 'Primacy - Carlton & Church Medical & Walk-In Clinic',
         address: '60 Carlton St, Toronto, ON M5B 1J2',
         distance: "4.0 mil",
-        hours: '9:30a.m.-4:30p.m. Monday - Friday',
+        hours: '9:30a.m.-4:30p.m.',
+        days: 'Monday - Friday',
         phone: '(416) 646-1890',
         website: 'http://www.primacyclinics.ca/locations/carlton-and-church/',
     },
@@ -58,16 +65,18 @@ const list = [
         name: 'Yonge Medical Centre',
         address: '500 Yonge St #300, Toronto, ON M4Y 1X9',
         distance: "4.8 mil",
-        hours: '9:30a.m.-5p.m. Monday - Friday',
+        hours: '9:30a.m.-5p.m.',
+        days: 'Monday - Friday',
         phone: '(888) 350-2323',
-        website: '',
+        website: 'No Website Currently',
     },
     {
         id:'7',
         name: 'Sanomed Medical Clinic',
         address: '1000 Bay St A, Toronto, ON M5S 3A8',
         distance: "5.0 mil",
-        hours: '9:30a.m.-5p.m. Monday - Friday',
+        hours: '9:30a.m.-5p.m.',
+        days: 'Monday - Friday',
         phone: '(416) 923-7770',
         website: 'http://sanomedclinic.ca/',
     },
@@ -77,6 +86,7 @@ class Clinics extends React.Component{
     render(){
         return(
         <React.Fragment>
+          <Navigation logo={LOGO} />
             <h1 class= "title">Closest Walk-In Medical Facilities:</h1>
             <List list={list} />
         </React.Fragment>
@@ -85,7 +95,7 @@ class Clinics extends React.Component{
 }
  
 const List = ({ list }) => (
-  <ul>
+  <ul style={{overflowY: 'scroll', maxHeight: 'calc(65vh)'}}>
     {list.map(item => (
       <ListItem key={item.id} item={item} />
     ))}
@@ -127,7 +137,6 @@ function MyChart( item ){
 }
 */
 const ListItem = ({ item  }) => (
-    
     <React.Fragment>
         <Container class="shadow p-3 mb-5 bg-white rounded" style={{paddingBottom: '5vh'}}>
         <div class = "shadow p-3 mb-5 bg-white rounded">
@@ -153,7 +162,8 @@ const ListItem = ({ item  }) => (
                             style={{float: "right", borderRadius: '2vh', background: "#789E9E"}} 
                             variant="secondary" 
                             type="submit" 
-                            size="lg">
+                            size="lg"
+                            onClick={() => localStorage.setItem('clinic', JSON.stringify(item))}>
                             Reserve Appointment
                         </Button>
                     </Link>
