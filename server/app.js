@@ -4,20 +4,6 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors')
-const admin = require('firebase-admin');
-
-const firebaseConfig = {
-  apiKey: "AIzaSyD93hKn54YxT1sAE5qKA3DZMyvAz0P6tKQ",
-  authDomain: "falcon-project-f2431.firebaseapp.com",
-  databaseURL: "https://falcon-project-f2431.firebaseio.com",
-  projectId: "falcon-project-f2431",
-  storageBucket: "falcon-project-f2431.appspot.com",
-  messagingSenderId: "555496500915",
-  appId: "1:555496500915:web:831bc1d32d318fa8504ac6",
-  measurementId: "G-E492JJPFVW"
-}
-
-admin.initializeApp(firebaseConfig);
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
