@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const admin = require('firebase-admin');
 require('dotenv').config()
 const fetch = require('node-fetch')
+
+console.log(admin.firestore());
 
 /* GET home page. */
 router.get('/symptoms', function(req, res, next) {
