@@ -13,9 +13,10 @@ const firebaseConfig = {
   measurementId: "G-E492JJPFVW"
 }
 
+app.initializeApp(firebaseConfig);
+
 class Firebase {
     constructor() {
-      app.initializeApp(firebaseConfig);
       this.auth = app.auth();
       this.db = app.firestore();
     }
@@ -41,6 +42,19 @@ class Firebase {
     async resetPassword(email) {
       await this.auth.sendPasswordResetEmail(email);
     }
+
+    async createPost(Title, Link, Email) {
+      console.log(this.auth.currentUser)
+      if(!this.auth.currentUser) return null;
+
+      const data = {
+        Email: Email,
+        Title: Title,
+        Link: Link
+      }
+
+      const setPost = await this.db.collection('Post').doc(Title).set(data);
+    }
   }
   
-  export default Firebase;
+  export const firebase = new Firebase();
