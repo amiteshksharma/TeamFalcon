@@ -1,4 +1,5 @@
 import React from "react";
+import Authorization from './session/Authorization';
 
 function createStory(){
     return(
@@ -6,4 +7,6 @@ function createStory(){
     );
 }
 
-export default createStory;
+const condition = authUser => !!authUser;
+
+export default Authorization(condition)(createStory);

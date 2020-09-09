@@ -3,8 +3,10 @@ import { withRouter } from "../../../node_modules/react-router-dom";
 import { compose } from "recompose";
 
 import { ForgetPasswordLink } from "./forgotPassword";
+import { SignUpLink } from "./signup";
 import { withFirebase } from "../firebase";
 import { ROUTES } from "../../routes";
+
 
 class LoginIn extends Component {
   render() {
@@ -13,6 +15,7 @@ class LoginIn extends Component {
         <h1>SignIn</h1>
         <LogInForm />
         <ForgetPasswordLink />
+        <SignUpLink />
       </div>
     );
   }
@@ -38,7 +41,7 @@ class LogInFormBase extends Component {
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
         this.setState({ ...INITIAL_STATE });
-        this.props.history.push(ROUTES.STORIES);
+        this.props.history.push(ROUTES.CREATE);
       })
       .catch((error) => {
         this.setState({ error });
@@ -58,6 +61,7 @@ class LogInFormBase extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
+        <p>Enter Your Email:</p>
         <input
           name="email"
           value={email}
@@ -65,6 +69,7 @@ class LogInFormBase extends Component {
           type="text"
           placeholder="Email Address"
         />
+        <p>Enter Password:</p>
         <input
           name="password"
           value={password}
@@ -72,6 +77,7 @@ class LogInFormBase extends Component {
           type="password"
           placeholder="Password"
         />
+        <br />
         <button disabled={isInvalid} type="submit">
           Sign In
         </button>
