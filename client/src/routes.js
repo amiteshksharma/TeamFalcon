@@ -4,4 +4,5 @@ export const ROUTES = {
     CREATE: "/create_story",
     LOGIN: "/login",
     FORGOT_PASSWORD: "/forgot_password",
+    HOME: "/"
   };

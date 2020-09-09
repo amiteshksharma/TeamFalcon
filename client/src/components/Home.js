@@ -1,10 +1,27 @@
 import React, { useContext } from 'react';
-import { FirebaseContext } from "./firbase";
+import { FirebaseContext } from "./firebase";
 
 class Home extends React.Component {
 
     constructor(props) {
         super(props);
+    }
+
+    componentDidMount() {
+        // let val = this.props.value.loadComments("Hello");
+        // val.then(res => {
+        //     console.log(res);
+        //     res.forEach(response => {
+        //         console.log(Object.values(response))
+        //     })
+        // })
+
+        // let val = this.props.value.loadLikes("Post");
+        // val.then(res => {
+        //     console.log(res.Total);
+        // })
+
+        this.props.value.createPost("Title here", "Link here", "email@gmail.com");
     }
 
     render() {
@@ -18,7 +35,6 @@ class Home extends React.Component {
 
 export default function HomeFunction() {
     const value = useContext(FirebaseContext);
-    value.createPost("Time", "Hello", "spain@gmail.com")
     
-    return <Home></Home>
+    return <Home value={value}></Home>
 }
