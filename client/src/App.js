@@ -1,5 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Stories from "./components/Stories";
+import createStory from "./components/createStory";
+import login from "./components/authentication/login";
+import forgotPassword from "./components/authentication/forgotPassword";
+import Navigation from "./components/Navigation"
+import { withAuthentication } from "./components/session";
+
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -7,24 +14,22 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { ROUTES } from "./routes";
 
 function App() {
+
   return (
+    
     //The router navigates to the different pages
-      // <Router>
-      //   {/* <Breadcrumbs /> */}
-      //   <Switch>
-      //     <Route exact path={ROUTES.LANDING} component={Landing} />
-      //     <Route exact path={ROUTES.INFO} component={Personal_info} />
-      //     <Route exact path={ROUTES.SYMPTOMS} component={Symptoms} />
-      //     <Route exact path={ROUTES.SYMPTOM_LIST} component={SymptomList} />
-      //     <Route exact path={ROUTES.PRELIMINARYDIAGNOSIS} component={PreliminaryDiagnosis} />
-      //     <Route exact path={ROUTES.CLINICS} component={Clinics} />
-      //     <Route exact path={ROUTES.CONFIRMATION} component={Confirmation} />
-      //   </Switch>
-      // </Router>
-      <div>
-        <h1>Hellow world</h1>
-      </div>
+    <React.Fragment>
+    <Router>
+      <Navigation />
+        <Switch>
+          <Route exact path={ROUTES.STORIES} component={Stories} />
+          <Route exact path={ROUTES.CREATE} component={createStory} />
+          <Route exact path={ROUTES.LOGIN} component={login} />
+          <Route exact path={ROUTES.FORGOT_PASSWORD} component={forgotPassword} />
+        </Switch>
+    </Router>
+    </React.Fragment>
   );
 }
 
-export default App;
+export default withAuthentication(App);
