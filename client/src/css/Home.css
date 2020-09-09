@@ -1,0 +1,13 @@
+.post-layout {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.post-container {
+    margin-top: calc(4vh);
+    width: 85%;
+    background-color: rgb(233, 233, 233);
+    height: calc(90vh);
+}

@@ -43,6 +43,15 @@ class Firebase {
 
   users = () => this.db.ref('users');
 
+  async createProfile(username, email) {
+    const data = {
+      Email: email,
+      Username: username
+    }
+    
+    await this.firestore.collection('User').doc(email).set(data);    
+  }
+
   async createPost(title, link, email) {
     // console.log(this.auth.currentUser)
     // if(!this.auth.currentUser) return null;

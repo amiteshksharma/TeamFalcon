@@ -1,0 +1,32 @@
+.total-tile-layout {
+    display: flex;
+    flex-direction: row;
+}
+
+.order-number {
+    margin-right: calc(0.4vw);
+}
+
+.tile-layout {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.post-information, .post-bottom-information {
+    display: flex;
+    flex-direction: row;
+}
+
+.post-bottom-information {
+    display: flex;
+}
+
+.comment-link {
+
+}
+
+.comment-link:hover {
+    text-decoration: underline;
+    color: rgb(109, 108, 108);
+}

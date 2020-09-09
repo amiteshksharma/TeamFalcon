@@ -48,6 +48,7 @@ class SignUpFormBase extends Component{
             .then(() =>{
                 this.setState({ ...INITIAL_STATE});
                 this.props.history.push(ROUTES.STORIES);
+                this.props.firebase.createProfile(username, email);
             })
             .catch(error => {
                 this.setState({ error });

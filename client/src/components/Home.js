@@ -1,33 +1,36 @@
 import React, { useContext } from 'react';
 import { FirebaseContext } from "./firebase";
+import PostTile from './PostTile';
+import '../css/Home.css';
 
 class Home extends React.Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            Posts: []
+        }
     }
 
     componentDidMount() {
-        // let val = this.props.value.loadComments("Hello");
-        // val.then(res => {
-        //     console.log(res);
-        //     res.forEach(response => {
-        //         console.log(Object.values(response))
-        //     })
-        // })
-
-        // let val = this.props.value.loadLikes("Post");
-        // val.then(res => {
-        //     console.log(res.Total);
-        // })
-
-        this.props.value.createPost("Title here", "Link here", "email@gmail.com");
+        const getPosts = this.props.firebase.loadPosts();
+        getPosts.then(posts => {
+            this.setState({Posts: posts});
+        }) 
     }
 
     render() {
         return (
-            <div>
-                <h1>Hello Wrodl!</h1>
+            <div className="post-layout">
+                <div className="post-container">
+                    {this.state.Posts.map((post, index) => {
+                        console.log(post);
+                        return (
+                            <PostTile title={post.Title} author={post.Email} link={post.Link} firebase={this.props.firebase} number={index+1}/>
+                        )
+                    })}
+                </div>
             </div>
         )
     }
@@ -36,5 +39,5 @@ class Home extends React.Component {
 export default function HomeFunction() {
     const value = useContext(FirebaseContext);
     
-    return <Home value={value}></Home>
+    return <Home firebase={value}></Home>
 }
