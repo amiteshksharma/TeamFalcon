@@ -14,10 +14,12 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
-        const getPosts = this.props.firebase.loadPosts();
-        getPosts.then(posts => {
+        setTimeout(() => {
+            const getPosts = this.props.firebase.loadPosts();
+            getPosts.then(posts => {
             this.setState({Posts: posts});
         }) 
+        }, 1000)
     }
 
     render() {
@@ -27,7 +29,7 @@ class Home extends React.Component {
                     {this.state.Posts.map((post, index) => {
                         console.log(post);
                         return (
-                            <PostTile title={post.Title} author={post.Email} link={post.Link} firebase={this.props.firebase} number={index+1}/>
+                            <PostTile title={post.Title} author={post.Username} link={post.Link} firebase={this.props.firebase} number={index+1}/>
                         )
                     })}
                 </div>

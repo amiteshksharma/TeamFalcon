@@ -9,6 +9,7 @@ export default function PostTile(props) {
     useEffect(() => {
         const getLikes = props.firebase.loadLikes(props.title);
         getLikes.then(count => {
+            console.log(count)
             setLikes({Likes: count.Total});
         })
 

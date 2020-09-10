@@ -39,6 +39,7 @@ class Comment extends React.Component {
         const text = this.state.Text;
         const username = localStorage.getItem('Username');
         const addComment = this.props.firebase.commentPost(this.state.Title, text, username);
+        this.setState({Text: ''});
 
         this.componentDidMount();
     }
@@ -59,7 +60,9 @@ class Comment extends React.Component {
 
                         <Row>
                             <Col md={{ span: 5, offset: 1 }}>
-                                <Form.Group controlId="exampleForm.ControlTextarea1" onChange={(e) => this.setState({Text: e.target.value})}>
+                                <Form.Group controlId="exampleForm.ControlTextarea1" 
+                                    onChange={(e) => this.setState({Text: e.target.value})}
+                                    value={this.state.Text}>
                                     <Form.Control as="textarea" rows="4" />
                                 </Form.Group>
                             </Col>
@@ -77,6 +80,9 @@ class Comment extends React.Component {
                     <div className="comment-div">
                         <div className="comment-container">
                             {this.state.Comments.map(comment => {
+                                if(comment[1] === null) {
+                                    return;
+                                }
                                 return (
                                     <div>
                                         <h5>{comment[0]}</h5>

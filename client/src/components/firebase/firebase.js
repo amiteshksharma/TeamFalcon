@@ -58,18 +58,18 @@ class Firebase {
     return profile.data();
   }
 
-  async createPost(title, link, email) {
+  async createPost(title, link, username) {
     // console.log(this.auth.currentUser)
     // if(!this.auth.currentUser) return null;
 
     const data = {
-      Email: email,
+      Username: username,
       Title: title,
       Link: link
     }
 
     await this.firestore.collection('Post').doc(title).set(data);
-    await this.firestore.collection('Comments').doc(title).set({[email]: null})
+    await this.firestore.collection('Comments').doc(title).set({[username]: null})
     await this.firestore.collection('Likes').doc(title).set({Total: 0})
   }
 
@@ -172,7 +172,18 @@ class Firebase {
   async getTotalComments(title) {
     const getTotalComments = await this.firestore.collection("Comments").doc(title).get();
 
-    return Object.keys(getTotalComments.data()).length
+    let count = 0;
+    const keys = Object.keys(getTotalComments.data());
+    const data = getTotalComments.data()
+    for(let key of keys) {
+      if(data[key] === null || data[key] === undefined) {
+        continue;
+      } else {
+        count++;
+      }
+    }
+
+    return count;
   }
 }
  
