@@ -18,7 +18,6 @@ import { ROUTES } from "./routes";
 
 const App = () => (
     //The router navigates to the different pages
-    <React.Fragment>
     <Router>
       <Navigation />
         <Switch>
@@ -31,7 +30,6 @@ const App = () => (
           <Route exact path={ROUTES.SIGNUP} component={SignUpPage} />
         </Switch>
     </Router>
-    </React.Fragment>
 );
 
 export default withAuthentication(App);
