@@ -17,7 +17,7 @@ class Home extends React.Component {
         setTimeout(() => {
             const getPosts = this.props.firebase.loadPosts();
             getPosts.then(posts => {
-            this.setState({Posts: posts});
+            this.setState({Posts: posts});  
         }) 
         }, 1000)
     }

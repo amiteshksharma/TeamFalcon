@@ -44,18 +44,21 @@ class Firebase {
   users = () => this.db.ref('users');
 
   async createProfile(username, email) {
+    const date = new Date();
+
     const data = {
       Email: email,
-      Username: username
+      Username: username,
+      Timestamp: date
     }
     
     await this.firestore.collection('User').doc(email).set(data);    
   }
 
-  async loadProfile(email) {
-    const profile = await this.firestore.collection('User').doc(email).get();    
+  async loadProfile(username) {
+    const profile = await this.firestore.collection('User').where("Username", "==", username).get();    
 
-    return profile.data();
+    return profile.docs.map(doc => doc.data());
   }
 
   async createPost(title, link, username) {
@@ -93,6 +96,7 @@ class Firebase {
 
     let value = count
     value = value - 1;
+    if(value === -1) value = 0;
     const data = {
       Total: value
     }
@@ -184,6 +188,31 @@ class Firebase {
     }
 
     return count;
+  }
+
+  async getUserPostsLikes(email) {
+    const getUserLikes = await this.firestore.collection("User").doc(email).collection("Post").get();
+    return getUserLikes.docs.map(doc => doc.id);
+  }
+
+  async getUserComments(username) {
+    const getUserComments = await this.firestore.collection("Comments").get();
+    const getData = getUserComments.docs;
+    let count = 0;
+    
+    for (const doc of getData) {
+      if(doc.data()[username] == null) continue;
+
+      count++
+    }
+    
+    return count;
+  }
+
+  async getUserPosts(username) {
+    const getUserPosts = await this.firestore.collection("Post").where("Username", "==", username).get();
+
+    return getUserPosts.docs.map(doc => doc.data());
   }
 }
  

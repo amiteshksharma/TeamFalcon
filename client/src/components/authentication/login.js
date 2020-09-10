@@ -47,7 +47,7 @@ class LogInFormBase extends Component {
           localStorage.setItem('Username', profile.Username);  
         })
 
-        this.props.history.push(ROUTES.CREATE);
+        this.props.history.push(ROUTES.HOME);
       })
       .catch((error) => {
         this.setState({ error });

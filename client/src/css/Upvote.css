@@ -1,0 +1,6 @@
+.liked-icon, .unliked-icon {
+    font-size: calc(1vw);
+    margin-top: calc(-0.3vh);
+    margin-right: calc(0.3vw);
+    cursor: pointer;
+}

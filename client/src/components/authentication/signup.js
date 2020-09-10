@@ -47,10 +47,10 @@ class SignUpFormBase extends Component{
             })
             .then(() =>{
                 this.setState({ ...INITIAL_STATE});
-                this.props.history.push(ROUTES.STORIES);
                 this.props.firebase.createProfile(username, email);
                 localStorage.setItem('Email', email);
                 localStorage.setItem('Username', username);
+                this.props.history.push(ROUTES.HOME);
             })
             .catch(error => {
                 this.setState({ error });

@@ -18,6 +18,10 @@
     flex-direction: row;
 }
 
+.profile-redirect { 
+    cursor: pointer;
+}
+
 .post-bottom-information {
     display: flex;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Stories from "./components/Stories";
+import Profile from "./components/Profile";
 import HomeFunction from './components/Home';
 import CommentFunction from './components/Comment';
 import createStory from "./components/createStory";
@@ -24,7 +24,7 @@ const App = () => (
         <Switch>
           <Route exact path={ROUTES.HOME} component={HomeFunction} />
           <Route exact path={ROUTES.COMMENT} component={CommentFunction} />
-          <Route exact path={ROUTES.STORIES} component={Stories} />
+          <Route exact path={ROUTES.PROFILE} component={Profile} />
           <Route exact path={ROUTES.CREATE} component={createStory} />
           <Route exact path={ROUTES.LOGIN} component={login} />
           <Route exact path={ROUTES.FORGOT_PASSWORD} component={forgotPassword} />

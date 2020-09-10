@@ -1,6 +1,6 @@
 /* Temp routes for testing, update later for prod */
 export const ROUTES = {
-    STORIES: "/stories",
+    PROFILE: "/profile/:name",
     CREATE: "/create_story",
     LOGIN: "/login",
     SIGNUP: "/signup",

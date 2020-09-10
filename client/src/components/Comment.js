@@ -60,10 +60,11 @@ class Comment extends React.Component {
 
                         <Row>
                             <Col md={{ span: 5, offset: 1 }}>
-                                <Form.Group controlId="exampleForm.ControlTextarea1" 
-                                    onChange={(e) => this.setState({Text: e.target.value})}
-                                    value={this.state.Text}>
-                                    <Form.Control as="textarea" rows="4" />
+                                <Form.Group controlId="exampleForm.ControlTextarea1" >
+                                    <Form.Control as="textarea" rows="4" 
+                                        type="text"
+                                        onChange={(e) => this.setState({Text: e.target.value})}
+                                        value={this.state.Text}/>
                                 </Form.Group>
                             </Col>
                         </Row>
