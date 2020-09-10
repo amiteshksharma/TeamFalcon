@@ -6,8 +6,8 @@
 }
 
 .post-container {
-    margin-top: calc(4vh);
+    margin-top: calc(0vh);
     width: 85%;
-    background-color: rgb(233, 233, 233);
+    background-color: rgb(235, 235, 235);
     height: calc(90vh);
 }

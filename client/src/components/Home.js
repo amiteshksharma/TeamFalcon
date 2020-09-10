@@ -36,8 +36,8 @@ class Home extends React.Component {
     }
 }
 
-export default function HomeFunction() {
+export default function HomeFunction(props) {
     const value = useContext(FirebaseContext);
     
-    return <Home firebase={value}></Home>
+    return <Home firebase={value} props={props}></Home>
 }

@@ -52,6 +52,12 @@ class Firebase {
     await this.firestore.collection('User').doc(email).set(data);    
   }
 
+  async loadProfile(email) {
+    const profile = await this.firestore.collection('User').doc(email).get();    
+
+    return profile.data();
+  }
+
   async createPost(title, link, email) {
     // console.log(this.auth.currentUser)
     // if(!this.auth.currentUser) return null;
@@ -67,7 +73,7 @@ class Firebase {
     await this.firestore.collection('Likes').doc(title).set({Total: 0})
   }
 
-  async upvote(title, count) {
+  async upvote(title, count, email) {
     // console.log(this.auth.currentUser)
     // if(!this.auth.currentUser) return null;
 
@@ -78,9 +84,10 @@ class Firebase {
     }
     
     const upvote = await this.firestore.collection("Likes").doc(title).set(data);
+    const addLike = await this.firestore.collection("User").doc(email).collection("Post").doc(title).set({isLiked: true})
   }
 
-  async downvote(title, count) {
+  async downvote(title, count, email) {
     // console.log(this.auth.currentUser)
     // if(!this.auth.currentUser) return null;
 
@@ -91,6 +98,7 @@ class Firebase {
     }
     
     const upvote = await this.firestore.collection("Likes").doc(title).set(data);
+    const addLike = await this.firestore.collection("User").doc(email).collection("Post").doc(title).delete();
   }
 
   async removePost(title) {
@@ -121,14 +129,14 @@ class Firebase {
    * @param {string} comment 
    * @param {string} email 
    */
-  async commentPost(title, comment, email) {
+  async commentPost(title, comment, name) {
     // console.log(this.auth.currentUser)
     // if(!this.auth.currentUser) return null;
     const data = {
-      [email]: comment
+      [name]: comment
     }
 
-    const addComment = await this.firestore.collection("Comments").doc(title).set(data)
+    const addComment = await this.firestore.collection("Comments").doc(title).update(data)
   }
 
   async deleteComment(title, email) {
@@ -150,19 +158,21 @@ class Firebase {
   }
 
   async loadComments(title) {
-    const getComments = await this.firestore.collection("Comments").get();
-    let commentArray = [];
-    getComments.forEach(async (comment) => {
-      commentArray.push(comment.data())
-    })
+    const getComments = await this.firestore.collection("Comments").doc(title).get();
 
-    return commentArray;
+    return getComments.data();
   }
 
   async loadLikes(title) {
     const getComments = await this.firestore.collection("Likes").doc(title).get();
 
     return getComments.data();
+  }
+
+  async getTotalComments(title) {
+    const getTotalComments = await this.firestore.collection("Comments").doc(title).get();
+
+    return Object.keys(getTotalComments.data()).length
   }
 }
  

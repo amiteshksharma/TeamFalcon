@@ -1,0 +1,35 @@
+.comment-layout {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.comment-background {
+    background-color: rgb(235, 235, 235);
+    min-height: calc(94vh);
+    width: calc(90%);
+}
+
+.post-description {
+    display: flex;
+    flex-direction: column;
+}
+
+.post-title {
+    margin-bottom: calc(0vh);
+}
+
+.comment-div {
+    margin-top: calc(6vh);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.comment-container {
+    width: calc(82%);   
+}
+
+.comment-p {
+    width: calc(70%);
+}

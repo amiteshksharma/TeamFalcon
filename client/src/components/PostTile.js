@@ -14,6 +14,17 @@ export default function PostTile(props) {
 
     }, [])
 
+    const onClick = () => {
+        history.push({
+            pathname: `/comment/${props.title}`,
+            state: {
+                Title: props.title,
+                Likes: likes.Likes,
+                Author: props.author
+            }
+         })
+    }
+
     return (
         <div className="total-tile-layout">
             <p className="order-number">{props.number}.</p>
@@ -25,7 +36,7 @@ export default function PostTile(props) {
                 <div className="post-bottom-information">
                     <p>{likes.Likes} points by {props.author} </p>
                     <span style={{marginRight: 'calc(0.2vw)', marginLeft: 'calc(0.2vw)'}} >|</span>
-                    <p className="comment-link">Comment here</p>
+                    <p onClick={() => onClick()}className="comment-link">Comment here</p>
                 </div>
             </div>
         </div>

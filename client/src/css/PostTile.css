@@ -23,10 +23,11 @@
 }
 
 .comment-link {
-
+    cursor: pointer;
 }
 
 .comment-link:hover {
+    cursor: pointer;
     text-decoration: underline;
     color: rgb(109, 108, 108);
 }

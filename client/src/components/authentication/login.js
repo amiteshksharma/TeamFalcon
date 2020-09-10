@@ -41,6 +41,12 @@ class LogInFormBase extends Component {
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
         this.setState({ ...INITIAL_STATE });
+        localStorage.setItem('Email', email);
+        const getProfile = this.props.firebase.loadProfile(email)
+        getProfile.then(profile => {
+          localStorage.setItem('Username', profile.Username);  
+        })
+
         this.props.history.push(ROUTES.CREATE);
       })
       .catch((error) => {

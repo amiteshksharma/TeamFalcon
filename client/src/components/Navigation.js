@@ -2,6 +2,7 @@ import React from "react";
 import { Navbar, Nav, Button } from "react-bootstrap";
 import { ROUTES } from "../routes";
 import { AuthUserContext } from "./session";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import SignOutButton from "./authentication/signout";
 
