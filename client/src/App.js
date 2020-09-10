@@ -17,7 +17,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { ROUTES } from "./routes";
 
 const App = () => (
-    //The router navigates to the different pages
     <Router>
       <Navigation />
         <Switch>
