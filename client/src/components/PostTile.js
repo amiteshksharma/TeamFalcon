@@ -5,14 +5,20 @@ import Upvote from './Upvote';
 
 export default function PostTile(props) {
     const history = useHistory();
-    const [likes, setLikes] = useState({Likes: 0});
+    const [likes, setLikes] = useState({Likes: {Total: 0}});
     const [commentTotal, setCommentTotal] = useState({Comments: 0});
 
+
+    console.log(likes.Likes.Total);
     useEffect(() => {
         const getLikes = props.firebase.loadLikes(props.title);
         getLikes.then(count => {
             console.log(count)
-            setLikes({Likes: count[0].Total});
+            if(count.length !== 0) {
+                console.log('here')
+                console.log(count[0])
+                setLikes({Likes: count[0]});
+            }
         })
 
         const getNumComments = props.firebase.getTotalComments(props.title);
@@ -53,7 +59,7 @@ export default function PostTile(props) {
                 </div>
                 
                 <div className="post-bottom-information">
-                    <p>{likes.Likes} points by 
+                    <p>{likes.Likes.Total} points by 
                         <span className="profile-redirect" 
                             onClick={() => profile()}>{" " + props.author}
                         </span>     

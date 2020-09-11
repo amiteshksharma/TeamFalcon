@@ -11,14 +11,16 @@ function Profile(props) {
     const firebase = useContext(FirebaseContext);
 
     const convertToDate = (info) => {
+        console.log(info)
         const toDate = new Date(0)
         toDate.setUTCSeconds(info[0].Timestamp.seconds);
         return toDate.toString()
     }    
 
     useEffect(() => {
-        const getProfile = firebase.loadProfile(author);
+        const getProfile = firebase.getProfile(author);
         getProfile.then(info => {
+            console.log(info)
             setTimestamp({Timestamp: convertToDate(info)});
             const getTotalLikes = firebase.getUserPostsLikes(info[0].Email)
             getTotalLikes.then(likes => {

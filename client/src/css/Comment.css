@@ -35,6 +35,11 @@
     justify-content: center;
 }
 
+.post-info {
+    display: flex;
+    flex-direction: row;
+}
+
 .comment-container {
     width: calc(82%);   
 }

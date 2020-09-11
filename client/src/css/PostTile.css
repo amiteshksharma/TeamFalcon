@@ -22,6 +22,10 @@
     cursor: pointer;
 }
 
+.profile-redirect:hover {
+    text-decoration: underline;
+}
+
 .post-bottom-information {
     display: flex;
 }

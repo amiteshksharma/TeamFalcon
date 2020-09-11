@@ -61,10 +61,20 @@ class Firebase {
   }
 
   /**
-   * Loads the profile page
+   * Gets the user's username when logging in
    * @param {string} username 
    */
-  async loadProfile(username) {
+  async loadProfile(email) {
+    const profile = await this.firestore.collection('User').doc(email).get();    
+
+    return profile.data();
+  }
+
+  /**
+   * Gets the profile details for the profile page
+   * @param {String} email 
+   */
+  async getProfile(username) {
     const profile = await this.firestore.collection('User').where("Username", "==", username).get();    
 
     return profile.docs.map(doc => doc.data());
@@ -87,7 +97,10 @@ class Firebase {
     }
 
     await this.firestore.collection('Post').add(data);
-    await this.firestore.collection('Likes').add({Total: 0, Title: title})
+    await this.firestore.collection('Likes').add({
+      Total: 0, 
+      Title: title
+    })
   }
 
   /**
@@ -102,11 +115,10 @@ class Firebase {
 
     let value = count
     value = value + 1;
-    const data = {
-      Total: value
-    }
+
+    console.log(value);
     
-    const upvote = await this.firestore.collection("Likes").doc(likeId).set(data);
+    const upvote = await this.firestore.collection("Likes").doc(likeId).update({Total: value});
     const addLike = await this.firestore.collection("User").doc(email).collection("Post").doc(title).set({isLiked: true})
   }
 
@@ -123,11 +135,8 @@ class Firebase {
     let value = count
     value = value - 1;
     if(value === -1) value = 0;
-    const data = {
-      Total: value
-    }
     
-    const upvote = await this.firestore.collection("Likes").doc(likeId).set(data);
+    const upvote = await this.firestore.collection("Likes").doc(likeId).update({Total: value});
     const addLike = await this.firestore.collection("User").doc(email).collection("Post").doc(title).delete();
   }
 

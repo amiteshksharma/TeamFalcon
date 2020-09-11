@@ -3,7 +3,7 @@ import { FirebaseContext } from "./firebase";
 import '../css/Comment.css';
 import { Row, Container, Col, Form, Button } from 'react-bootstrap';
 import { Authorization } from './session';
-import { Redirect } from 'react-router-dom';
+import Upvote from './Upvote';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
 import { ROUTES } from "../routes";
@@ -107,7 +107,8 @@ class Comment extends React.Component {
                                     <div className="delete-post" onClick={() => this.deletePost()}>
                                         <FontAwesomeIcon icon={faTrash} />
                                     </div>
-                                    <p className="post-info">{this.state.Likes} points by {this.state.Author} | {this.state.CommentTotal} comments </p>
+                                    <p className="post-info"><Upvote title={this.state.Title} likes={this.state.Likes} />
+                                    {" "}{this.state.Likes.Total} points by {this.state.Author} | {this.state.CommentTotal} comments </p>
                                 </div>
                                 {this.state.ShowTextbox ? 
                                     <Row>

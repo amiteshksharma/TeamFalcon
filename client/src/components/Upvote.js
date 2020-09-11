@@ -30,10 +30,10 @@ export default function Upvote(props) {
         }else{
             if(liked.Liked) {
                 setLiked({Liked: false});
-                firebase.downvote(props.title, props.likes, getEmail);
+                firebase.downvote(props.title, props.likes.Total, getEmail);
             } else {
                 setLiked({Liked: true});
-                firebase.upvote(props.title, props.likes, getEmail);   
+                firebase.upvote(props.title, props.likes.Total, getEmail);   
             }
         }
     }
