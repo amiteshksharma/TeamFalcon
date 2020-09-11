@@ -9,24 +9,32 @@ export default function Upvote(props) {
     const [posts, setPosts] = useState({Posts: []});
     const firebase = useContext(FirebaseContext);
     const getEmail = localStorage.getItem('Email');
-
+    
     useEffect(() => {
-        const getAllLikedPosts = firebase.getUserPostsLikes(getEmail);
-        getAllLikedPosts.then(titles => {
-            setPosts({Posts: titles});
-            if(titles.includes(props.title)) {
-                setLiked({Liked: true})
-            }
-        })
+        if(getEmail === null){
+            
+        }else{
+            const getAllLikedPosts = firebase.getUserPostsLikes(getEmail);
+            getAllLikedPosts.then(titles => {
+                setPosts({Posts: titles});
+                if(titles.includes(props.title)) {
+                    setLiked({Liked: true})
+                }
+            })
+        }
     }, [])
 
     const clicked = () => {
-        if(liked.Liked) {
-            setLiked({Liked: false});
-            firebase.downvote(props.title, props.likes, getEmail);
-        } else {
-            setLiked({Liked: true});
-            firebase.upvote(props.title, props.likes, getEmail);   
+        if(getEmail === null){
+
+        }else{
+            if(liked.Liked) {
+                setLiked({Liked: false});
+                firebase.downvote(props.title, props.likes, getEmail);
+            } else {
+                setLiked({Liked: true});
+                firebase.upvote(props.title, props.likes, getEmail);   
+            }
         }
     }
 

@@ -191,28 +191,40 @@ class Firebase {
   }
 
   async getUserPostsLikes(email) {
-    const getUserLikes = await this.firestore.collection("User").doc(email).collection("Post").get();
-    return getUserLikes.docs.map(doc => doc.id);
+    if(email === null){
+      return null;
+    }else{
+      const getUserLikes = await this.firestore.collection("User").doc(email).collection("Post").get();
+      return getUserLikes.docs.map(doc => doc.id);
+    } 
   }
 
   async getUserComments(username) {
-    const getUserComments = await this.firestore.collection("Comments").get();
-    const getData = getUserComments.docs;
-    let count = 0;
-    
-    for (const doc of getData) {
-      if(doc.data()[username] == null) continue;
+    if(username === null){
+      return null;
+    }else{
+      const getUserComments = await this.firestore.collection("Comments").get();
+      const getData = getUserComments.docs;
+      let count = 0;
+      
+      for (const doc of getData) {
+        if(doc.data()[username] == null) continue;
 
-      count++
+        count++
+      }
+      
+      return count;
     }
-    
-    return count;
   }
 
   async getUserPosts(username) {
-    const getUserPosts = await this.firestore.collection("Post").where("Username", "==", username).get();
+    if(username === null){
+      return null;
+    }else{
+      const getUserPosts = await this.firestore.collection("Post").where("Username", "==", username).get();
 
-    return getUserPosts.docs.map(doc => doc.data());
+      return getUserPosts.docs.map(doc => doc.data());
+    }
   }
 }
  

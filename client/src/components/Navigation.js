@@ -23,7 +23,6 @@ const NavigationAuth = () => (
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href={ROUTES.STORIES}>Stories</Nav.Link>
           <Nav.Link href={ROUTES.CREATE}>Create Story</Nav.Link>
         </Nav>
         <Nav.Link className="sign_out" href={ROUTES.HOME}>
@@ -43,7 +42,6 @@ const NavigationNonAuth = () => (
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href={ROUTES.STORIES}>Stories</Nav.Link>
         </Nav>
         <Nav.Link className="sign_in" href={ROUTES.LOGIN}>
           <Button variant="outline-info">

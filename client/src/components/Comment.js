@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import { FirebaseContext } from "./firebase";
 import '../css/Comment.css';
 import { Row, Container, Col, Form, Button } from 'react-bootstrap';
+import { Authorization } from './session';
+import { ROUTES } from "../routes";
 
 class Comment extends React.Component {
 
@@ -99,8 +101,13 @@ class Comment extends React.Component {
     }
 }
 
-export default function CommentFunction(props) {
+const condition = authUser => !!authUser;
+const route = ROUTES.LOGIN;
+
+function CommentFunction(props) {
     const value = useContext(FirebaseContext);
     
     return <Comment firebase={value} prop={props}></Comment>
 }
+
+export default Authorization(condition, route)(CommentFunction);
