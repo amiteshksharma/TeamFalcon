@@ -43,6 +43,11 @@ class Firebase {
 
   users = () => this.db.ref('users');
 
+  /**
+   * Creates the profile for the user
+   * @param {String} username 
+   * @param {String} email 
+   */
   async createProfile(username, email) {
     const date = new Date();
 
@@ -55,12 +60,22 @@ class Firebase {
     await this.firestore.collection('User').doc(email).set(data);    
   }
 
+  /**
+   * Loads the profile page
+   * @param {string} username 
+   */
   async loadProfile(username) {
     const profile = await this.firestore.collection('User').where("Username", "==", username).get();    
 
     return profile.docs.map(doc => doc.data());
   }
 
+  /**
+   * Create the post and store in the proper collections
+   * @param {String} title 
+   * @param {String} link 
+   * @param {String} username 
+   */
   async createPost(title, link, username) {
     // console.log(this.auth.currentUser)
     // if(!this.auth.currentUser) return null;
@@ -71,14 +86,19 @@ class Firebase {
       Link: link
     }
 
-    await this.firestore.collection('Post').doc(title).set(data);
-    await this.firestore.collection('Comments').doc(title).set({[username]: null})
-    await this.firestore.collection('Likes').doc(title).set({Total: 0})
+    await this.firestore.collection('Post').add(data);
+    await this.firestore.collection('Likes').add({Total: 0, Title: title})
   }
 
+  /**
+   * Increments the count for likes by 1
+   * @param {String} title 
+   * @param {String} count 
+   * @param {String} email 
+   */
   async upvote(title, count, email) {
-    // console.log(this.auth.currentUser)
-    // if(!this.auth.currentUser) return null;
+    const getLikeId = await this.getID("Likes", title, "Title");
+    const likeId = getLikeId[0];
 
     let value = count
     value = value + 1;
@@ -86,13 +106,19 @@ class Firebase {
       Total: value
     }
     
-    const upvote = await this.firestore.collection("Likes").doc(title).set(data);
+    const upvote = await this.firestore.collection("Likes").doc(likeId).set(data);
     const addLike = await this.firestore.collection("User").doc(email).collection("Post").doc(title).set({isLiked: true})
   }
 
+  /**
+   * Decrements the count for likes by 1
+   * @param {String} title 
+   * @param {String} count 
+   * @param {String} email 
+   */
   async downvote(title, count, email) {
-    // console.log(this.auth.currentUser)
-    // if(!this.auth.currentUser) return null;
+    const getLikeId = await this.getID("Likes", title, "Title");
+    const likeId = getLikeId[0];
 
     let value = count
     value = value - 1;
@@ -101,34 +127,94 @@ class Firebase {
       Total: value
     }
     
-    const upvote = await this.firestore.collection("Likes").doc(title).set(data);
+    const upvote = await this.firestore.collection("Likes").doc(likeId).set(data);
     const addLike = await this.firestore.collection("User").doc(email).collection("Post").doc(title).delete();
   }
 
+  /**
+   * Deletes all instances of the post in the collections
+   * @param {String} title 
+   */
   async removePost(title) {
-    // console.log(this.auth.currentUser)
-    // if(!this.auth.currentUser) return null;
-    
-    const removePost = await this.firestore.collection('Post').doc(title).delete();
+    //Get the UID tokens from each collection
+    const getPostId = await this.getID("Post", title, "Title");
+    const getLikeId = await this.getID("Likes", title, "Title");
+    const getCommentId = await this.getID("Comments", title, "Post");
+
+    //Get the ids from the calls above
+    const id = getPostId[0];
+    const likeId = getLikeId[0];
+
+    //Remove the instance of the Post
+    const updatePost = await this.firestore.collection("Post").doc(id).delete();
+    const updateLike = await this.firestore.collection("Likes").doc(likeId).delete();
+    if(getCommentId !== null || getCommentId !== undefined) {
+      for (const comment of getCommentId) {
+        const updateComment = await this.firestore.collection("Comments").doc(comment).delete();
+      }
+    }
+
   }
 
-  async updatePost(oldTitle, title, link, email) {
+  /**
+   * Updates all instances of the post 
+   * @param {String} oldTitle 
+   * @param {String} title 
+   * @param {String} link 
+   * @param {String} username 
+   */
+  async updatePost(oldTitle, title, link, username) {
     // console.log(this.auth.currentUser)
     // if(!this.auth.currentUser) return null;
     const data = {
-      Link: link,
-      Title: title, 
-      Email: email 
+      Username: username,
+      Title: title,
+      Link: link
     }
 
-    const removeOldPost = await this.removePost(oldTitle);
-    const updatePost = await this.createPost(title, link, email);
+    const getLikes = await this.loadLikes(oldTitle);
+
+    //Get the UID tokens from each collection
+    const getPostId = await this.getID("Post", oldTitle, "Title");
+    const getLikeId = await this.getID("Likes", oldTitle, "Title");
+    const getCommentId = await this.getID("Comments", oldTitle, "Post");
+
+    //Get the ids from the calls above
+    const id = getPostId[0];
+    const likeId = getLikeId[0];
+    const commentId = getCommentId[0];
+
+    //Update the corresponding fields in each collection
+    const updatePost = await this.firestore.collection("Post").doc(id).set(data);
+    const updateLike = await this.firestore.collection("Likes").doc(likeId).update({
+      Title: title
+    });
+    const updateComment = await this.firestore.collection("Comments").doc(commentId).update({
+      Post: title
+    });
+
+    //add like total to update in the frontend
+    data.Total = getLikes[0].Total;
+
+    return data;
+  }
+
+  /**
+   * Helper Method to get the ID for items
+   * @param {String} collection 
+   * @param {String} parameter 
+   * @param {String} string 
+   */
+  async getID(collection, parameter, string) {
+    const getUid = await this.firestore.collection(collection).where(string, "==", parameter).get();
+
+    return getUid.docs.map(doc => doc.id);
   }
   
   /**
-   * Method will be used for both creating new post 
-   * and updating comment. User will only be allowed
-   * to comment Once on a post.
+   * Method will be used for creating
+   * New comment
+   * 
    * @param {string} title 
    * @param {string} comment 
    * @param {string} email 
@@ -137,18 +223,39 @@ class Firebase {
     // console.log(this.auth.currentUser)
     // if(!this.auth.currentUser) return null;
     const data = {
-      [name]: comment
+      Post: title,
+      Comment: comment,
+      Name: name
     }
 
-    const addComment = await this.firestore.collection("Comments").doc(title).update(data)
+    const addComment = await this.firestore.collection("Comments").add(data)
   }
 
-  async deleteComment(title, email) {
-    // console.log(this.auth.currentUser)
-    // if(!this.auth.currentUser) return null;
+  /**
+   * Updates the comment
+   * @param {String} oldComment 
+   * @param {String} comment 
+   */
+  async updateComment(oldComment, comment) {
+    const getCommentId = await this.getID("Comments", oldComment, "Comment");
+    const commentId = getCommentId[0];
 
-    const addComment = await this.firestore.collection("Comments").doc(title).
-      collection(email).delete()
+    const updateComment = await this.firestore.collection("Comments").doc(commentId).update({
+      Comment: comment
+    })
+
+  }
+
+  /**
+   * Deletes the comment from under the post
+   * @param {String} comment 
+   * @param {String} username 
+   */
+  async deleteComment(comment, username) {
+    const findComment = await this.firestore.collection("Comments").where("Comment", "==", comment).where("Name", "==", username).get()
+    const getId = findComment.docs.map(doc => doc.id);
+    
+    const removeComment = await this.firestore.collection("Comments").doc(getId[0]).delete();
   }
 
   async loadPosts() {
@@ -162,69 +269,45 @@ class Firebase {
   }
 
   async loadComments(title) {
-    const getComments = await this.firestore.collection("Comments").doc(title).get();
+    const getComments = await this.firestore.collection("Comments").where("Post", "==", title).get();
 
-    return getComments.data();
+    const val = getComments.docs.map(doc => doc.data());
+    return val;
   }
 
   async loadLikes(title) {
-    const getComments = await this.firestore.collection("Likes").doc(title).get();
+    const getComments = await this.firestore.collection("Likes").where("Title", "==", title).get();
 
-    return getComments.data();
+    return getComments.docs.map(doc => doc.data());
   }
 
   async getTotalComments(title) {
-    const getTotalComments = await this.firestore.collection("Comments").doc(title).get();
+    const getTotalComments = await this.firestore.collection("Comments").where("Post", "==", title).get();
 
-    let count = 0;
-    const keys = Object.keys(getTotalComments.data());
-    const data = getTotalComments.data()
-    for(let key of keys) {
-      if(data[key] === null || data[key] === undefined) {
-        continue;
-      } else {
-        count++;
-      }
-    }
-
-    return count;
+    const val = getTotalComments.docs.map(doc => doc.data());
+    return val.length;
   }
 
   async getUserPostsLikes(email) {
-    if(email === null){
-      return null;
-    }else{
-      const getUserLikes = await this.firestore.collection("User").doc(email).collection("Post").get();
-      return getUserLikes.docs.map(doc => doc.id);
-    } 
+    if(email === null) return null;
+    const getUserLikes = await this.firestore.collection("User").doc(email).collection("Post").get();
+    return getUserLikes.docs.map(doc => doc.id);
   }
 
   async getUserComments(username) {
-    if(username === null){
-      return null;
-    }else{
-      const getUserComments = await this.firestore.collection("Comments").get();
-      const getData = getUserComments.docs;
-      let count = 0;
-      
-      for (const doc of getData) {
-        if(doc.data()[username] == null) continue;
+    if(username === null) return null;
 
-        count++
-      }
-      
-      return count;
-    }
+    const getUserComments = await this.firestore.collection("Comments").where("Name", "==", username).get();
+    const getData = getUserComments.docs.map(doc => doc.id);
+    
+    return getData.length;
   }
 
   async getUserPosts(username) {
-    if(username === null){
-      return null;
-    }else{
+    if(username === null) return null;
       const getUserPosts = await this.firestore.collection("Post").where("Username", "==", username).get();
 
       return getUserPosts.docs.map(doc => doc.data());
-    }
   }
 }
  

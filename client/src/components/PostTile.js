@@ -12,7 +12,7 @@ export default function PostTile(props) {
         const getLikes = props.firebase.loadLikes(props.title);
         getLikes.then(count => {
             console.log(count)
-            setLikes({Likes: count.Total});
+            setLikes({Likes: count[0].Total});
         })
 
         const getNumComments = props.firebase.getTotalComments(props.title);
@@ -28,7 +28,8 @@ export default function PostTile(props) {
             state: {
                 Title: props.title,
                 Likes: likes.Likes,
-                Author: props.author
+                Author: props.author,
+                Link: props.link
             }
          })
     }

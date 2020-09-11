@@ -19,6 +19,15 @@
     margin-bottom: calc(0vh);
 }
 
+.post-header-text {
+    display: flex;
+    flex-direction: row;
+}
+
+.edit-title {
+    margin-left: calc(2vw);
+}
+
 .comment-div {
     margin-top: calc(6vh);
     width: 100%;
@@ -32,4 +41,21 @@
 
 .comment-p {
     width: calc(70%);
+}
+
+.comment-node {
+    position: relative;
+}
+
+.comment-delete {
+    position: absolute;
+    right: calc(10vw);
+    top: calc(35%);
+    cursor: pointer;
+}
+
+.delete-post {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
 }
