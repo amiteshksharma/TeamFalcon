@@ -125,6 +125,7 @@ class Comment extends React.Component {
                             </Col>
                         </Row>
 
+                        {localStorage.getItem('Username') ? 
                         <Row>
                             <Col md={{ span: 5, offset: 1 }}>
                                 <Form.Group controlId="exampleForm.ControlTextarea1" >
@@ -136,7 +137,7 @@ class Comment extends React.Component {
                                         />
                                 </Form.Group>
                             </Col>
-                        </Row>
+                        </Row> : null}
 
                         <Row>
                             <Col md={{ span: 5, offset: 1 }}>
