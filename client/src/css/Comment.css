@@ -26,6 +26,17 @@
 
 .edit-title {
     margin-left: calc(2vw);
+    cursor: pointer;
+}
+
+.author-link {
+    cursor: pointer;
+    margin-left: calc(0.2vw);
+    margin-right: calc(0.2vw);
+}
+
+.author-link:hover {
+    text-decoration: underline;
 }
 
 .comment-div {
@@ -56,6 +67,13 @@
     position: absolute;
     right: calc(10vw);
     top: calc(35%);
+    cursor: pointer;
+}
+
+.comment-edit {
+    position: absolute;
+    left: calc(20vw);
+    top: calc(0%);
     cursor: pointer;
 }
 

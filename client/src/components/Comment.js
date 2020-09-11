@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import { FirebaseContext } from "./firebase";
 import '../css/Comment.css';
-import { Row, Container, Col, Form, Button } from 'react-bootstrap';
+import { Row, Container, Col, Form, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Authorization } from './session';
 import Upvote from './Upvote';
+import EditComment from './EditComment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
 import { ROUTES } from "../routes";
@@ -24,13 +25,16 @@ class Comment extends React.Component {
             Comments: [],
             Text: '',
             NewTitle: '',
-            ShowTextbox: false
+            ShowTextbox: false,
         }
 
         this.handleClick = this.handleClick.bind(this);
         this.remove = this.remove.bind(this);
         this.editTitle = this.editTitle.bind(this);
         this.deletePost = this.deletePost.bind(this);
+        this.tooltipDelete = this.tooltipDelete.bind(this);
+        this.tooltipEdit = this.tooltipEdit.bind(this);
+        this.redirect = this.redirect.bind(this);
     }
 
     componentDidMount() {
@@ -88,6 +92,31 @@ class Comment extends React.Component {
         this.props.prop.history.push("/")
     }
 
+    tooltipDelete(tag) {
+        return (
+            <Tooltip>
+                Delete {tag}
+            </Tooltip>
+        )
+    }
+
+    tooltipEdit(tag) {
+        return (
+            <Tooltip>
+                Edit {tag}
+            </Tooltip>
+        )
+    }
+
+    redirect() {
+        this.props.prop.history.push({
+            pathname: `/profile/${this.state.Author}`,
+            state: {
+                Author: this.state.Author
+            }
+        })
+    }
+
     render() {
         return (
             <div className="comment-layout">
@@ -98,17 +127,26 @@ class Comment extends React.Component {
                                 <div className="post-description">
                                     <div className="post-header-text">
                                         <p className="post-title"><strong><a href={this.state.Link}>{this.state.Title}</a></strong></p>
-                                        {localStorage.getItem('Email') ? 
-                                        <div className="edit-title" onClick={() => this.editTitle()}>
-                                            <FontAwesomeIcon icon={faEdit} />
-                                        </div> : null}
+                                        {localStorage.getItem('Username') == this.state.Author ? 
+                                        <OverlayTrigger placement="right" overlay={this.tooltipEdit("Title")} delay={{ show: 200, hide: 200}}>
+                                            <div className="edit-title" onClick={() => this.editTitle()}>
+                                                <FontAwesomeIcon icon={faEdit} />
+                                            </div>
+                                        </OverlayTrigger> : null}
                                     </div>
 
-                                    <div className="delete-post" onClick={() => this.deletePost()}>
-                                        <FontAwesomeIcon icon={faTrash} />
-                                    </div>
+                                    {localStorage.getItem('Username') == this.state.Author ? 
+                                        <OverlayTrigger placement="right" overlay={this.tooltipDelete("Post")} delay={{ show: 200, hide: 200}}>
+                                            <div className="delete-post" onClick={() => this.deletePost()}>
+                                                <FontAwesomeIcon icon={faTrash} />
+                                            </div>
+                                        </OverlayTrigger> : null}
+
                                     <p className="post-info"><Upvote title={this.state.Title} likes={this.state.Likes} />
-                                    {" "}{this.state.Likes.Total} points by {this.state.Author} | {this.state.CommentTotal} comments </p>
+                                    {" "}{this.state.Likes.Total} points by 
+                                        <div onClick={() => this.redirect()} className="author-link">
+                                            {this.state.Author}
+                                        </div> | {this.state.CommentTotal} comments </p>
                                 </div>
                                 {this.state.ShowTextbox ? 
                                     <Row>
@@ -152,18 +190,18 @@ class Comment extends React.Component {
                     <div className="comment-div">
                         <div className="comment-container">
                             {this.state.Comments.map(comment => {
-                                if(comment === null) {
-                                    return;
-                                }
+                                if(comment === null) return;
                                 return (
                                     <div className="comment-node" key={comment.Comment}>
                                         <h5>{comment.Name}</h5>
-                                        <p className="comment-p">{comment.Comment} </p>
+                                        <EditComment comment={comment} />
                                         {localStorage.getItem('Username') === comment.Name ? 
-                                        <div className="comment-delete" 
-                                            onClick={() => this.remove(comment.Comment, comment.Name)}>
-                                            <FontAwesomeIcon icon={faTrash}/>
-                                        </div> : null}
+                                        <OverlayTrigger placement="right" overlay={this.tooltipDelete("Comment")} delay={{ show: 200, hide: 200}}>
+                                            <div className="comment-delete" 
+                                                onClick={() => this.remove(comment.Comment, comment.Name)}>
+                                                <FontAwesomeIcon icon={faTrash}/>
+                                            </div>
+                                        </OverlayTrigger> : null}
                                     </div>
                                 )
                             })}
