@@ -96,11 +96,17 @@ class Firebase {
       Link: link
     }
 
+    const id = await this.getID("Post", title, "Title");
+    console.log(id[0]);
+    if(id[0] !== undefined) return false;
+
     await this.firestore.collection('Post').add(data);
     await this.firestore.collection('Likes').add({
       Total: 0, 
       Title: title
     })
+
+    return true;
   }
 
   /**

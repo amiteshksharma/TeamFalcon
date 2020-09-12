@@ -9,11 +9,16 @@ function CreateStory() {
     const [title, setTitle] = useState('');
     const [validationUrl, setValidationUrl] = useState(false);
     const [validationTitle, setValidationTitle] = useState(false);
+    const [unique, setUnique] = useState(false);
     const firebase = useContext(FirebaseContext);
     const history = useHistory();
 
     const isValidUrl = () => {
-        return url.includes(".com") ? true : false
+        let isTrue = true;
+        if(!url.includes(".com")) isTrue = false;
+        if(!url.includes("http://")) isTrue = false;
+        if(!url.includes("https://")) isTrue = false;
+        return isTrue;
     }
 
     const isValidTitle = () => {
@@ -28,10 +33,19 @@ function CreateStory() {
         if(title && url) {
             const username = localStorage.getItem('Username')
             const createPost = firebase.createPost(title, url, username);
-            history.push('/');
+            createPost.then(title => {
+                if(!title) {
+                    setUnique(true)
+                    setValidationTitle(true)
+                    return;
+                } else {
+                    history.push('/');
+                }
+            })
         }
-
     }
+
+    console.log(unique);
     return (
         <Container fluid>
             <Row>
@@ -40,17 +54,28 @@ function CreateStory() {
                         <Form.Group controlId="formGroupEmail">
                             <Form.Label>Title</Form.Label>
                             <Form.Control type="text" placeholder="Enter Title" 
-                                onChange={(e) => setTitle(e.target.value)}
+                                onChange={(e) => {
+                                    setTitle(e.target.value)
+                                    setUnique(false)
+                                    setValidationTitle(false)
+                                }}
                                 isInvalid={validationTitle}
                             />
-                            <Form.Control.Feedback type="invalid">
+                            {!unique && <Form.Control.Feedback type="invalid">
                                 Please enter a valid Title
-                            </Form.Control.Feedback>
+                            </Form.Control.Feedback>}
+
+                            {unique && <Form.Control.Feedback type="invalid">
+                                This title is already taken. Please enter a new one!
+                            </Form.Control.Feedback>}
                         </Form.Group>
                         <Form.Group controlId="formGroupPassword">
                             <Form.Label>URL</Form.Label>
                             <Form.Control type="text" placeholder="Enter Valid URL" 
-                            onChange={(e) => setUrl(e.target.value)}
+                            onChange={(e) => {
+                                setUrl(e.target.value)
+                                setValidationUrl(false)
+                            }}
                             isInvalid={validationUrl}
                             />
                             <Form.Control.Feedback type="invalid">
