@@ -9,6 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
 import { ROUTES } from "../routes";
 
+let titlePost = '';
+
 class Comment extends React.Component {
 
     constructor(props) {
@@ -38,6 +40,7 @@ class Comment extends React.Component {
     }
 
     componentDidMount() {
+        titlePost = this.state.Title;
         const getNumComments = this.props.firebase.getTotalComments(this.state.Title);
         getNumComments.then(num => {
             this.setState({CommentTotal: num});
@@ -165,26 +168,29 @@ class Comment extends React.Component {
                         </Row>
 
                         {localStorage.getItem('Username') ? 
-                        <Row>
-                            <Col md={{ span: 5, offset: 1 }}>
-                                <Form.Group controlId="exampleForm.ControlTextarea1" >
-                                    <Form.Control as="textarea" rows="4" 
-                                        type="text"
-                                        onChange={(e) => this.setState({Text: e.target.value})}
-                                        value={this.state.Text}
-                                        placeholder="Enter comment here..."
-                                        />
-                                </Form.Group>
-                            </Col>
-                        </Row> : null}
+                        <div>
+                            <Row>
+                                <Col md={{ span: 5, offset: 1 }}>
+                                    <Form.Group controlId="exampleForm.ControlTextarea1" >
+                                        <Form.Control as="textarea" rows="4" 
+                                            type="text"
+                                            onChange={(e) => this.setState({Text: e.target.value})}
+                                            value={this.state.Text}
+                                            placeholder="Enter comment here..."
+                                            />
+                                    </Form.Group>
+                                </Col>
+                            </Row> 
+                            
+                            <Row>
+                                <Col md={{ span: 5, offset: 1 }}>
+                                    <Button onClick={() => this.handleClick()}>
+                                        Submit
+                                    </Button>
+                                </Col>
+                            </Row> 
+                        </div>: null}
 
-                        <Row>
-                            <Col md={{ span: 5, offset: 1 }}>
-                                <Button onClick={() => this.handleClick()}>
-                                    Submit
-                                </Button>
-                            </Col>
-                        </Row>
                     </Container>
 
                     <div className="comment-div">
@@ -213,13 +219,10 @@ class Comment extends React.Component {
     }
 }
 
-const condition = authUser => !!authUser;
-const route = ROUTES.LOGIN;
-
 function CommentFunction(props) {
     const value = useContext(FirebaseContext);
     
     return <Comment firebase={value} prop={props}></Comment>
 }
 
-export default Authorization(condition, route)(CommentFunction);
+export default CommentFunction;
